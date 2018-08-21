@@ -44,6 +44,10 @@ abstract class BaseModel
         return true;
     }
 
+    /** обновление записи
+     *
+     * @return bool
+     */
     public function update()
     {
         DBConnector::setCharsetEncoding();

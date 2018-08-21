@@ -14,7 +14,7 @@ $router->addRoute('/', function (){
 
 
 
-$router->addRoute('/fff', function (){
+$router->addRoute('/fff/:name', function (){
     echo 'page fff';
 });
 
