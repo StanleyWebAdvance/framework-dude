@@ -70,12 +70,26 @@ class Route
         $uri = $_SERVER['REQUEST_URI'];
 
         if (!isset($this->routeCollection[$uri])) {
-            die('404');
+
+            return $this->systemPage('404');
         }
 
         $controllerObject = $this->routeCollection[$uri]['controllerObject'];
         $action = $this->routeCollection[$uri]['action'];
         $controllerObject->$action();
+        return true;
+    }
+
+    /**
+     * @param $page
+     * @return bool
+     */
+    private function systemPage($page)
+    {
+        $controller = 'app\controllers\BaseController';
+        $controller = new $controller;
+        $controller->systemPage($page);
+        return true;
     }
 }
 

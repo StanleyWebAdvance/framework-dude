@@ -9,8 +9,8 @@ class Template
         ob_start();
         extract($params);
         include_once "/resources/view/" . $uri . ".php";
-
         echo ob_get_clean();
+
         return true;
     }
 }

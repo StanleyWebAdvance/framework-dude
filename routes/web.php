@@ -11,10 +11,7 @@ $router = new Route($request);
 
 $router->get('/', 'PageController@index');
 
-
-
 $router->get('/get', 'PageController@edit');
-
 
 
 
