@@ -1,22 +1,19 @@
 <?php
 
 use core\Route;
+use core\Request;
 
-
-$router = new Route();
-
-
-
-
-$router->addRoute('/', function (){
-    echo 'main';
-});
+$request = new Request();
+$router = new Route($request);
 
 
 
-$router->addRoute('/fff/:name', function (){
-    echo 'page fff';
-});
+
+$router->get('/', 'PageController@index');
+
+
+
+$router->get('/get', 'PageController@edit');
 
 
 

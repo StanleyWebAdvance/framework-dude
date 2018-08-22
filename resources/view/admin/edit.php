@@ -6,5 +6,7 @@
 </head>
 <body>
 
+<?php echo $page  ?>
+
 </body>
 </html>

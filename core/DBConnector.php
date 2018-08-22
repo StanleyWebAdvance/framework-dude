@@ -2,7 +2,7 @@
 
 namespace core;
 
-use config\database;
+use config\Config;
 
 class DBConnector
 {
@@ -11,13 +11,15 @@ class DBConnector
 
     public static function getInstance()
     {
+        $configDB = new Config('.env');
+
         if(empty(self::$instance)) {
             $db_info = array(
-                "db_host" => database::getDB_HOST(),
-                "db_port" => database::getDB_PORT(),
-                "db_user" => database::getDB_USERNAME(),
-                "db_pass" => database::getDB_PASSWORD(),
-                "db_name" => database::getDB_DATABASE(),
+                "db_host" => $configDB->parseConfig('DB_HOST'),
+                "db_port" => $configDB->parseConfig('DB_PORT'),
+                "db_user" => $configDB->parseConfig('DB_USERNAME'),
+                "db_pass" => $configDB->parseConfig('DB_PASSWORD'),
+                "db_name" => $configDB->parseConfig('DB_DATABASE'),
                 "db_charset" => "UTF-8");
             try {
                 self::$instance = new \PDO("mysql:host=".$db_info['db_host'].';port='.$db_info['db_port'].';dbname='.$db_info['db_name'], $db_info['db_user'], $db_info['db_pass']);

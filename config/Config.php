@@ -2,27 +2,30 @@
 
 namespace config;
 
-abstract class BaseConfig
+class Config
 {
-    protected $data;
+    private $data;
+    private $fileName;
 
-    public function __construct()
+    public function __construct($fileName)
     {
-        if (!file_exists(".env")) {
-            return "надо что-то вернуть в виде ошибки";
+        if (!file_exists($fileName)) {
+            return "файл не найден";
         }
 
-        $this->data = $this->getData();
+        $this->fileName = $fileName;
+        $this->data = $this->getData($fileName);
         return true;
     }
 
-    /** читаем файл .env
+    /** читаем файл, бьем его построчно
+     *  удаляем переносы строк
      *
      * @return array|mixed
      */
-    private function getData()
+    private function getData($fileName)
     {
-        $fileData = fopen(".env", "rb");
+        $fileData = fopen($fileName, "rb");
         $data = explode("\n", fread($fileData, filesize(".env")));
         $data = str_replace(array("\r", "\n"), "", $data);
         fclose($fileData);
@@ -31,15 +34,14 @@ abstract class BaseConfig
     }
 
     /** возвращаем значение по переданному ключу config
-     *  из файла .env
      *
      * @param $data
      * @param $config
      * @return bool
      */
-    protected function parseConfig($data, $config)
+    public function parseConfig($config)
     {
-        foreach ($data as $str){
+        foreach ($this->data as $str){
 
             $option = explode("=", $str);
 
@@ -50,5 +52,4 @@ abstract class BaseConfig
         }
         return false;
     }
-
 }
