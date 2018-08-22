@@ -4,7 +4,7 @@ namespace app\models;
 
 use core\DBConnector;
 
-abstract class BaseModel
+class BaseModel
 {
     private $db;
     private $table;
