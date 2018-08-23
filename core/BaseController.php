@@ -1,8 +1,6 @@
 <?php
 
-namespace app\controllers;
-
-use core\Template;
+namespace core;
 
 class BaseController
 {

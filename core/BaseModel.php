@@ -1,8 +1,6 @@
 <?php
 
-namespace app\models;
-
-use core\DBConnector;
+namespace core;
 
 class BaseModel
 {
@@ -18,7 +16,7 @@ class BaseModel
         $this->table = $table;
     }
 
-    /** Возвращаем все из таблици
+    /** пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ
      *
      * @return string
      */
@@ -30,7 +28,7 @@ class BaseModel
         return $stm->fetchAll(\PDO::FETCH_ASSOC);
     }
 
-    /** Записываем в таблицу
+    /** пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ
      *
      * @return bool|string
      */
@@ -44,7 +42,7 @@ class BaseModel
         return true;
     }
 
-    /** обновление записи
+    /** пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ
      *
      * @return bool
      */
@@ -58,7 +56,7 @@ class BaseModel
         return true;
     }
 
-    /** найти колонки в базе по значению
+    /** пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
      *
      * @param $column
      * @return string
@@ -74,7 +72,7 @@ class BaseModel
         return $result = $stm->fetch(\PDO::FETCH_ASSOC);
     }
 
-    /** получение данных по id
+    /** пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ id
      *
      * @param $id
      * @return string
@@ -88,7 +86,7 @@ class BaseModel
         return $result = $stm->fetch(\PDO::FETCH_ASSOC);
     }
 
-    /** получение последнего id записаного в базу
+    /** пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ id пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅ
      *
      * @return string
      */
@@ -98,7 +96,7 @@ class BaseModel
         return $db->lastInsertId();
     }
 
-    /** заполняем where в запросе
+    /** пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ where пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ
      *
      * @param $column
      * @param $value
@@ -110,7 +108,7 @@ class BaseModel
         return $this;
     }
 
-    /** дописываем and в запрос
+    /** пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ and пїЅ пїЅпїЅпїЅпїЅпїЅпїЅ
      *
      * @param $column
      * @param $value
@@ -122,8 +120,8 @@ class BaseModel
         return $this;
     }
 
-    /** получаем данны для update
-     *  из массива fillable
+    /** пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ update
+     *  пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ fillable
      *
      * @return string
      */
@@ -139,8 +137,8 @@ class BaseModel
         return rtrim($items, ', ');
     }
 
-    /** получаем название колонок в базе
-     *  из массива $fillable
+    /** пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅ
+     *  пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ $fillable
      *
      * @return string
      */
@@ -156,7 +154,7 @@ class BaseModel
         return rtrim($columns, ', ');
     }
 
-    /** получаем значения соответствующие колонкам
+    /** пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
      *
      * @return string
      */

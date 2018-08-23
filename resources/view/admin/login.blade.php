@@ -15,7 +15,6 @@
 
     <input type="text" name="name" value="">
 
-
     <button type="submit">Отправить</button>
 
 </form>

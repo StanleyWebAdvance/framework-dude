@@ -3,7 +3,7 @@
 namespace app\controllers;
 
 use core\Request;
-use helpers\Debug;
+use core\BaseController;
 
 class PageController extends BaseController
 {
@@ -23,6 +23,7 @@ class PageController extends BaseController
     {
         if ($request->post('name') === 'Вася') {
 
+            //  todo    почемуто с адресной строке не пишется admin
             return $this->view('admin/admin');
         }
 
