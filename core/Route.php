@@ -14,7 +14,7 @@ class Route
         $this->request = $request;
     }
 
-    /** выполняется при обращении по адресу методом GET
+    /** РјРµС‚РѕРґ GET
      *
      * @param $uri
      * @param $controller
@@ -23,14 +23,14 @@ class Route
     public function get($uri, $controller)
     {
 //        if (!$this->request->isGet()){
-//            return 'метод не гет';
+//            return 'СЌС‚Рѕ РЅРµ РіРµС‚';
 //        }
 
-        $this->getControllerMethod($uri, $controller);
+        $this->getControllerMethod($uri, $controller, 'GET');
         return true;
     }
 
-    /** выполняется при обращении по адресу методом POST
+    /** РјРµС‚РѕРґ POST
      *
      * @param $uri
      * @param $controller
@@ -39,50 +39,61 @@ class Route
     public function post($uri, $controller)
     {
 //        if (!$this->request->isPost()){
-//            return 'метод не пост';
+//            return 'РЅРµ РїРѕСЃС‚';
 //        }
 
-        $this->getControllerMethod($uri, $controller);
+        $this->getControllerMethod($uri, $controller, 'POST');
         return true;
     }
 
-    /** заполняем массив адресов
-     *  для вызова нужного метода контроллера
+    /** Р·Р°РїРѕР»РЅСЏРµРј РјР°СЃСЃРёРІ РєРѕРЅС‚СЂРѕР»Р»РµСЂРѕРІ
+     *  РґР»СЏ РІС‹Р·РѕРІР° РјРµС‚РѕРґР° СЃРѕРѕС‚РІРµС‚СЃС‚РІСѓСЋС‰РµРіРѕ Р°РґСЂРµСЃСѓ РІС‹Р·РѕРІР°
      *
      * @param $uri
      * @param $controller
      */
-    private function getControllerMethod($uri, $controller)
+    private function getControllerMethod($uri, $controller, $method)
     {
         $param = explode("@", $controller);
 
         $controller = sprintf('app\controllers\%s', $param[0]);
 
-        $this->routeCollection[$uri] = array(
+//        $this->parseUri($uri);
+
+        $this->routeCollection[$this->parseUri($uri)] = array(
             'action' => $param[1],
             'controllerObject' => new $controller(),
-            'param' => $this->parseParam($uri)
+            'param' => $this->parseParam($uri),
+            'method' => $method
         );
-
 
     }
 
-    /** Запускаем метод котроллера
+    /** Р·Р°РїСѓСЃРєР°РµРј РјРµС‚РѕРґ РєРѕРЅС‚СЂРѕР»Р»РµСЂР°
      *
      */
     public function run()
     {
         $uri = $this->request->server('REQUEST_URI');
 
+        Debug::dump($this->routeCollection[$uri]['param']);
+
         if (!isset($this->routeCollection[$uri])) {
 
             return $this->systemPage('404');
         }
 
-//        todo походу проверку на метод тут делать надо будет
+//        todo РїСЂРѕРІРµСЂРєСѓ РЅР° РіРµС‚ Рё РїРѕСЃС‚ РІРёРґРёРјРѕ Р·РґРµСЃСЊ
 
         $controllerObject = $this->routeCollection[$uri]['controllerObject'];
         $action = $this->routeCollection[$uri]['action'];
+
+        if (!empty($this->routeCollection[$uri]['param'])) {
+
+            $controllerObject->$action($this->routeCollection[$uri]['param']);
+            return true;
+        }
+
         $controllerObject->$action();
         return true;
     }
@@ -109,7 +120,7 @@ class Route
 
             if (preg_match('~[:]~', $uriArray[$i])) {
 
-                //регулярка выбирает все начиная с : и до / или пробела  -->  [^:]\w+[^ /]
+                //СЂРµРіСѓР»СЏСЂРєР° РІС‹Р±РёСЂР°РµС‚ РІСЃРµ РѕС‚ : РґРѕ / РёР»Рё РїСЂРѕР±РµР»Р°  -->  [^:]\w+[^ /]
                 $nameParam = preg_replace('~[:]~', '', $uriArray[$i]);
 
                 $param[$nameParam] = $uriUser[$i];
@@ -118,5 +129,23 @@ class Route
 
         return $param;
     }
+
+    private function parseUri($uri)
+    {
+
+        $uriArray = explode('/', $uri);
+        $uriUser = explode('/', $this->request->server('REQUEST_URI'));
+
+        for ($i=0; $i<count($uriArray); $i++) {
+
+            if (preg_match('~[:]~', $uriArray[$i])) {
+
+                $uriArray[$i] = $uriUser[$i];
+            }
+        }
+
+        return implode('/', $uriArray);
+    }
+
 }
 

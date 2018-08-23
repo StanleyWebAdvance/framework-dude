@@ -7,7 +7,7 @@
 <body>
 
     <p>{{ $page }}</p>
-    <p>{{ $message or 'нет сообщения' }}</p>
+    <p>{{ $name }}</p>
 
 </body>
 </html>

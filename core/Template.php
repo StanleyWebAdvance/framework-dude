@@ -9,7 +9,7 @@ class Template
     const CACHE_PATH = __DIR__ . '/../storage/cache/view';
     const VIEW_PATH = __DIR__ . '/../resources/view/';
 
-    /** подключаем шаблон и предаем параметры
+    /** РїРѕРґРєР»СЋС‡Р°РµРј С€Р°Р±Р»РѕРЅ Рё РїРµСЂРµРґР°РµРј РїР°СЂР°РјРµС‚СЂС‹
      *
      * @param $uri
      * @param array $params

@@ -7,6 +7,7 @@
 <body>
 
     <p>{{ $page }}</p>
+    <p>{{ $id }}</p>
 
 </body>
 </html>

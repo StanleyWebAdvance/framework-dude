@@ -13,18 +13,19 @@ class PageController extends BaseController
         ));
     }
 
-    public function edit()
+    public function edit($params = array())
     {
         return $this->view('admin/edit', array(
-            'page' => 'hello!'
+            'page' => 'edit!',
+            'id' => 'Ð’Ð°Ñˆ id = ' . $params['id']
         ));
     }
 
-    public function store(Request $request, $id)
+    public function store($params = array())
     {
         return $this->view('admin/index', array(
-            'page' => 'çàïèñàíî',
-            'message' => $id
+            'page' => 'index (store)',
+            'name' => 'ÐŸÑ€Ð¸Ð²ÐµÑ‚ ' . $params['name']
         ));
     }
 }

@@ -11,9 +11,9 @@ $router = new Route($request);
 
 $router->get('/', 'PageController@index');
 
-$router->post('/get/:name', 'PageController@store');
+$router->get('/get/:name', 'PageController@store');
 
-$router->get('/edit/post/:id', 'PageController@edit');
+$router->post('/edit/post/:id', 'PageController@edit');
 
 
 

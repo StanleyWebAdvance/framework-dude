@@ -27,7 +27,8 @@ class Request
         $this->session = $_SESSION;
     }
 
-    /** получаем данные с массива пост
+    /** РІРѕР·РІСЂР°С‰Р°РµРј Р·РЅР°С‡РµРЅРёРµ СЃ РјР°СЃСЃРёРІР° РїРѕСЃС‚ РїРѕ РєР»СЋС‡Сѓ
+     *  Р»РёР±Рѕ РІРµСЃСЊ РјР°СЃСЃРёРІ
      *
      * @param null $name
      * @return array|mixed|null
@@ -37,7 +38,8 @@ class Request
         return $this->getArr($this->post, $name);
     }
 
-    /** получаем данные с массива сервер
+    /** РІРѕР·РІСЂР°С‰Р°РµРј Р·РЅР°С‡РµРЅРёРµ СЃ РјР°СЃСЃРёРІР° СЃРµСЂРІРµСЂ РїРѕ РєР»СЋС‡Сѓ
+     *  Р»РёР±Рѕ РІРµСЃСЊ РјР°СЃСЃРёРІ
      *
      * @param null $name
      * @return array|mixed|null
@@ -47,7 +49,7 @@ class Request
         return $this->getArr($this->server, $name);
     }
 
-    /** проверка метода обращения на страницу GET
+    /** РїСЂРѕРІРµСЂСЏРµРј РєР°РєРѕР№ Р±С‹Р» Р·Р°РїСЂРѕСЃ GET
      *
      * @return bool
      */
@@ -56,7 +58,7 @@ class Request
         return $this->server['REQUEST_METHOD'] === self::METHOD_GET;
     }
 
-    /** проверка метода обращения на страницу POST
+    /** РїСЂРѕРІРµСЂСЏРµРј РєР°РєРѕР№ Р±С‹Р» Р·Р°РїСЂРѕСЃ POST
      *
      * @return bool
      */
@@ -65,7 +67,7 @@ class Request
         return $this->server['REQUEST_METHOD'] === self::METHOD_POST;
     }
 
-    /** возвращаем данные с массива по ключу
+    /** РІРѕР·РІСЂР°С‰Р°РµРј Р·РЅР°С‡РµРЅРёРµ РїРѕ РєР»СЋС‡Сѓ
      *
      * @param array $arr
      * @param null $name

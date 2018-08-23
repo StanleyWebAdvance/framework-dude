@@ -10,7 +10,7 @@ class Config
     public function __construct($fileName)
     {
         if (!file_exists($fileName)) {
-            return "файл не найден";
+            return "пїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ";
         }
 
         $this->fileName = $fileName;
@@ -18,8 +18,8 @@ class Config
         return true;
     }
 
-    /** читаем файл, бьем его построчно
-     *  удаляем переносы строк
+    /** РІС‹Р±РёСЂР°РµРј РґР°РЅРЅС‹Рµ СЃ С„Р°Р№Р»Р° РїРѕСЃС‚СЂРѕС‡РЅРѕ
+     *  СѓР±РёСЂР°РµРј Р»РёС€РЅРёРµ РїРµСЂРµРЅРѕСЃС‹
      *
      * @return array|mixed
      */
@@ -33,7 +33,7 @@ class Config
         return $data;
     }
 
-    /** возвращаем значение по переданному ключу config
+    /** РІРѕР·РІСЂР°С‰Р°РµРј РїР°СЂР°РјРµС‚СЂ РїРѕ РёРјРµРЅРё config
      *
      * @param $data
      * @param $config

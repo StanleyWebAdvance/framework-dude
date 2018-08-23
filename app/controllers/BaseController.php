@@ -11,7 +11,7 @@ class BaseController
 
     }
 
-    /** передаем данные для генерации темплейта
+    /** РїРµСЂРµРґР°РµРј РґР°РЅРЅС‹Рµ РґР»СЏ РіРµРЅРµСЂР°С†РёРё С€Р°Р±Р»РѕРЅР°
      *
      * @param $uriView
      * @param array $params
@@ -23,7 +23,7 @@ class BaseController
         return $template->Render($uriView, $params);
     }
 
-    /** возвращаем системную страничку
+    /** РїРѕРґРєР»СЋС‡Р°РµРј С€Р°Р±Р»РѕРЅ РїРѕ РёРјРµРЅРё
      *
      * @param $page
      * @return bool
