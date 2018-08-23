@@ -3,13 +3,6 @@
 
 include_once __DIR__ . "/core/Console.php";
 
-switch ($argv[1]){
 
-    case "sayHello" :
-        Console::sayHello();
-        break;
+new \core\Console($argv);
 
-    default :
-        Console::info();
-        break;
-}

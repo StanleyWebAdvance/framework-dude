@@ -6,9 +6,6 @@ class Request
 {
     const METHOD_POST = 'POST';
     const METHOD_GET = 'GET';
-    const METHOD_DELETE = 'DELETE';
-    const METHOD_PUT = 'PUT';
-    const METHOD_UPDATE = 'UPDATE';
 
     private $get;
     private $post;
@@ -47,6 +44,11 @@ class Request
     public function server($name = null)
     {
         return $this->getArr($this->server, $name);
+    }
+
+    public function getMethod()
+    {
+        return $this->server['REQUEST_METHOD'];
     }
 
     /** проверяем какой был запрос GET

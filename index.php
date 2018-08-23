@@ -20,15 +20,20 @@ include_once __DIR__ .  "/routes/web.php";
 /* -----  test  ---- */
 
 
-use core\DBConnector;
+
 use config\Config;
 use core\Request;
 use app\controllers\PageController;
+use core\Console;
 
-$request = new Request();
-$config = new Config('.env');
+//$console = new Console(array('qq', 'make:Model'));
+//
+//\helpers\Debug::dump($console);
 
-$page = new PageController();
+//$request = new Request();
+//$config = new Config('.env');
+//
+//$page = new PageController();
 
 //\helpers\Helpers::dump($page->index());
 //\helpers\Helpers::dump(DBConnector::getInstance());

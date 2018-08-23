@@ -6,8 +6,7 @@
 </head>
 <body>
 
-    <p>{{ $page }}</p>
-    <p>{{ $name }}</p>
+<a href="/login">Вход</a>
 
 </body>
 </html>

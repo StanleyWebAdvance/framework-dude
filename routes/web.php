@@ -7,14 +7,11 @@ $request = new Request();
 $router = new Route($request);
 
 
-
-
 $router->get('/', 'PageController@index');
 
-$router->get('/get/:name', 'PageController@store');
+$router->get('/login', 'PageController@login');
 
-$router->post('/edit/post/:id', 'PageController@edit');
-
+$router->post('/login', 'PageController@admin');
 
 
 $router->run();

@@ -14,6 +14,11 @@ class Route
         $this->request = $request;
     }
 
+    /** вызов роута из web.php
+     *
+     * @param $name
+     * @param $arguments
+     */
     public function __call($name, $arguments)
     {
         $this->getControllerMethod($arguments[0], $arguments[1], $name);
@@ -32,13 +37,11 @@ class Route
 
         $controller = sprintf('app\controllers\%s', $param[0]);
 
-        $this->routeCollection[$this->parseUri($uri)] = array(
+        $this->routeCollection[$this->parseUri($uri)][mb_strtolower($method)] = array(
             'action' => $param[1],
             'controllerObject' => new $controller(),
             'param' => $this->parseParam($uri),
-            'method' => $method
         );
-
     }
 
     /** Проверяем есть ли такой роут
@@ -56,21 +59,27 @@ class Route
             return $this->systemPage('404');
         }
 
-        $checkMethod = sprintf('is%s', $this->routeCollection[$uri]['method']);
+        $realMethod = mb_strtolower($this->request->getMethod());
 
-        if (!$this->request->$checkMethod()) {
+        if (!isset($this->routeCollection[$uri][$realMethod])) {
 
             //  todo обработать ошибку
-            Debug::dump('не тот метод решить что-то с ошибками');
+            Debug::dump('такого метода не сущствует');
             return false;
         }
 
-        $controllerObject = $this->routeCollection[$uri]['controllerObject'];
-        $action = $this->routeCollection[$uri]['action'];
+        $controllerObject = $this->routeCollection[$uri][$realMethod]['controllerObject'];
+        $action = $this->routeCollection[$uri][$realMethod]['action'];
 
-        if (!empty($this->routeCollection[$uri]['param'])) {
+        if (!empty($this->routeCollection[$uri][$realMethod]['param'])) {
 
-            $controllerObject->$action($this->routeCollection[$uri]['param']);
+            $controllerObject->$action($this->request, $this->routeCollection[$uri][$realMethod]['param']);
+            return true;
+        }
+
+        if ($this->request->isPost()) {
+
+            $controllerObject->$action($this->request);
             return true;
         }
 
@@ -90,6 +99,7 @@ class Route
         return true;
     }
 
+    //  todo объеденить эти 2 метода
     private function parseParam($uri)
     {
         $param = array();
@@ -110,6 +120,7 @@ class Route
         return $param;
     }
 
+    //  todo объеденить эти 2 метода
     private function parseUri($uri)
     {
 

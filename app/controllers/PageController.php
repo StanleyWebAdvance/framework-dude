@@ -3,29 +3,30 @@
 namespace app\controllers;
 
 use core\Request;
+use helpers\Debug;
 
 class PageController extends BaseController
 {
     public function index()
     {
-        return $this->view('admin/index', array(
-            'page' => 'index'
+        return $this->view('admin/index');
+    }
+
+    public function login($error = '')
+    {
+        return $this->view('admin/login', array(
+            'error' => $error
         ));
     }
 
-    public function edit($params = array())
+    public function admin(Request $request)
     {
-        return $this->view('admin/edit', array(
-            'page' => 'edit!',
-            'id' => 'Ваш id = ' . $params['id']
-        ));
+        if ($request->post('name') === 'Вася') {
+
+            return $this->view('admin/admin');
+        }
+
+        return $this->login('ты не Вася ! ! !');
     }
 
-    public function store($params = array())
-    {
-        return $this->view('admin/index', array(
-            'page' => 'index (store)',
-            'name' => 'Привет ' . $params['name']
-        ));
-    }
 }
