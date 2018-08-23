@@ -2,6 +2,8 @@
 
 namespace config;
 
+use helpers\Debug;
+
 class Config
 {
     private $data;
@@ -10,7 +12,10 @@ class Config
     public function __construct($fileName)
     {
         if (!file_exists($fileName)) {
-            return "���� �� ������";
+
+            //  todo обработать ошибку
+            Debug::dump("файл не найден решить что-то с ошибками");
+            return false;
         }
 
         $this->fileName = $fileName;

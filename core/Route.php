@@ -14,36 +14,10 @@ class Route
         $this->request = $request;
     }
 
-    /** метод GET
-     *
-     * @param $uri
-     * @param $controller
-     * @return bool|string
-     */
-    public function get($uri, $controller)
+    public function __call($name, $arguments)
     {
-//        if (!$this->request->isGet()){
-//            return 'это не гет';
-//        }
+        $this->getControllerMethod($arguments[0], $arguments[1], $name);
 
-        $this->getControllerMethod($uri, $controller, 'GET');
-        return true;
-    }
-
-    /** метод POST
-     *
-     * @param $uri
-     * @param $controller
-     * @return bool|string
-     */
-    public function post($uri, $controller)
-    {
-//        if (!$this->request->isPost()){
-//            return 'не пост';
-//        }
-
-        $this->getControllerMethod($uri, $controller, 'POST');
-        return true;
     }
 
     /** заполняем массив контроллеров
@@ -58,8 +32,6 @@ class Route
 
         $controller = sprintf('app\controllers\%s', $param[0]);
 
-//        $this->parseUri($uri);
-
         $this->routeCollection[$this->parseUri($uri)] = array(
             'action' => $param[1],
             'controllerObject' => new $controller(),
@@ -69,21 +41,29 @@ class Route
 
     }
 
-    /** запускаем метод контроллера
+    /** Проверяем есть ли такой роут
+     *  проверяем правильный ли метод
+     *  запускам соответствующий контроллер->метод
      *
+     * @return bool
      */
     public function run()
     {
         $uri = $this->request->server('REQUEST_URI');
-
-        Debug::dump($this->routeCollection[$uri]['param']);
 
         if (!isset($this->routeCollection[$uri])) {
 
             return $this->systemPage('404');
         }
 
-//        todo проверку на гет и пост видимо здесь
+        $checkMethod = sprintf('is%s', $this->routeCollection[$uri]['method']);
+
+        if (!$this->request->$checkMethod()) {
+
+            //  todo обработать ошибку
+            Debug::dump('не тот метод решить что-то с ошибками');
+            return false;
+        }
 
         $controllerObject = $this->routeCollection[$uri]['controllerObject'];
         $action = $this->routeCollection[$uri]['action'];
