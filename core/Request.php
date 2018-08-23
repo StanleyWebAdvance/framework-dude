@@ -37,6 +37,16 @@ class Request
         return $this->getArr($this->post, $name);
     }
 
+    /** получаем данные с массива сервер
+     *
+     * @param null $name
+     * @return array|mixed|null
+     */
+    public function server($name = null)
+    {
+        return $this->getArr($this->server, $name);
+    }
+
     /** проверка метода обращения на страницу GET
      *
      * @return bool

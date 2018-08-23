@@ -1,10 +1,18 @@
 <?php
 
-include_once "routes/web.php";
+spl_autoload_register();
 
-function __autoload($classname) {
-    include_once __DIR__ . DIRECTORY_SEPARATOR . str_replace('\\', DIRECTORY_SEPARATOR, $classname) . '.php';
-}
+require __DIR__ . '/vendor/autoload.php';
+
+include_once __DIR__ .  "/routes/web.php";
+
+
+
+//function __autoload($classname) {
+//    include_once __DIR__ . DIRECTORY_SEPARATOR . str_replace('\\', DIRECTORY_SEPARATOR, $classname) . '.php';
+//}
+
+
 
 
 

@@ -2,6 +2,8 @@
 
 namespace app\controllers;
 
+use core\Request;
+
 class PageController extends BaseController
 {
     public function index()
@@ -15,6 +17,14 @@ class PageController extends BaseController
     {
         return $this->view('admin/edit', array(
             'page' => 'hello!'
+        ));
+    }
+
+    public function store(Request $request, $id)
+    {
+        return $this->view('admin/index', array(
+            'page' => 'записано',
+            'message' => $id
         ));
     }
 }

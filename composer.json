@@ -1,0 +1,13 @@
+{
+    "name": "framework/Dude",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Stanley and Ivan",
+            "email": "Stanley_23@mail.ru"
+        }
+    ],
+    "require": {
+        "philo/laravel-blade": "3.*"
+    }
+}

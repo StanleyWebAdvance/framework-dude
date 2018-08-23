@@ -6,7 +6,7 @@
 </head>
 <body>
 
-    <?php echo $page  ?>
+    <p>{{ $page }}</p>
 
 </body>
 </html>
