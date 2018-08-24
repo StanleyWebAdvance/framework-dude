@@ -5,6 +5,7 @@ namespace app\controllers;
 use app\requests\PageRequest;
 use core\BaseController;
 use helpers\Debug;
+use Intervention\Image\Image;
 
 class PageController extends BaseController
 {
@@ -41,6 +42,15 @@ class PageController extends BaseController
 
             return $this->login($message['errors']);
         }
+
+
+
+
+        // todo протестировать image
+
+        $image = new Image();
+
+
 
 
 

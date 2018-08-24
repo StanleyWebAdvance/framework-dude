@@ -14,7 +14,7 @@ class Validation
         $configDB = new Config('.env');
 
         $url_to_google_api = "https://www.google.com/recaptcha/api/siteverify";
-        $secret_key = $configDB->parseConfig('SECRET_KEY');
+        $secret_key = $configDB->parseConfig('CAPTCHA_SECRET_KEY');
         $query = $url_to_google_api . '?secret=' . $secret_key . '&response=' . $data . '&remoteip=' . $_SERVER['REMOTE_ADDR'];
         $response = json_decode(file_get_contents($query));
 
