@@ -4,9 +4,11 @@ namespace core;
 
 class BaseController
 {
+    private $template;
+
     public function __construct()
     {
-
+        $this->template = new Template();
     }
 
     /** передаем данные для генерации шаблона
@@ -17,8 +19,7 @@ class BaseController
      */
     protected function view($uriView, array $params = array())
     {
-        $template = new Template();
-        return $template->Render($uriView, $params);
+        return $this->template->render($uriView, $params);
     }
 
     /** подключаем шаблон по имени
@@ -28,7 +29,6 @@ class BaseController
      */
     public function systemPage($page)
     {
-        $template = new Template();
-        return $template->Render($page);
+        return $this->template->render($page);
     }
 }

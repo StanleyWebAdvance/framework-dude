@@ -2,7 +2,6 @@
 
 namespace core;
 
-
 class DBConnector
 {
     protected static $instance;

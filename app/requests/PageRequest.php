@@ -7,8 +7,6 @@ use core\FormRequest;
 class PageRequest extends FormRequest
 {
 
-
-
     public function rules()
     {
 

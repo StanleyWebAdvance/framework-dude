@@ -16,7 +16,7 @@ class BaseModel
         $this->table = $table;
     }
 
-    /** ���������� ��� �� �������
+    /** Выбираем все элементы с таблицы
      *
      * @return string
      */
@@ -28,7 +28,7 @@ class BaseModel
         return $stm->fetchAll(\PDO::FETCH_ASSOC);
     }
 
-    /** ���������� � �������
+    /** Записывам в базу новые данные
      *
      * @return bool|string
      */
@@ -42,7 +42,7 @@ class BaseModel
         return true;
     }
 
-    /** ���������� ������
+    /** Обновляем данные в базе
      *
      * @return bool
      */
@@ -56,7 +56,7 @@ class BaseModel
         return true;
     }
 
-    /** ����� ������� � ���� �� ��������
+    /** Выбираем данные с базы по параметрам
      *
      * @param $column
      * @return string
@@ -72,7 +72,7 @@ class BaseModel
         return $result = $stm->fetch(\PDO::FETCH_ASSOC);
     }
 
-    /** ��������� ������ �� id
+    /** Выбираем данные с базы по id
      *
      * @param $id
      * @return string
@@ -86,7 +86,7 @@ class BaseModel
         return $result = $stm->fetch(\PDO::FETCH_ASSOC);
     }
 
-    /** ��������� ���������� id ���������� � ����
+    /** Возвращаем последний записаный id  базу данных
      *
      * @return string
      */
@@ -96,7 +96,7 @@ class BaseModel
         return $db->lastInsertId();
     }
 
-    /** ��������� where � �������
+    /** заполняем where в запросе
      *
      * @param $column
      * @param $value
@@ -108,7 +108,7 @@ class BaseModel
         return $this;
     }
 
-    /** ���������� and � ������
+    /** дописываем and в запрос
      *
      * @param $column
      * @param $value
@@ -120,8 +120,8 @@ class BaseModel
         return $this;
     }
 
-    /** �������� ����� ��� update
-     *  �� ������� fillable
+    /** получаем данны для update
+     *  из массива fillable
      *
      * @return string
      */
@@ -137,8 +137,8 @@ class BaseModel
         return rtrim($items, ', ');
     }
 
-    /** �������� �������� ������� � ����
-     *  �� ������� $fillable
+    /** получаем название колонок в базе
+     *  из массива $fillable
      *
      * @return string
      */
@@ -154,7 +154,7 @@ class BaseModel
         return rtrim($columns, ', ');
     }
 
-    /** �������� �������� ��������������� ��������
+    /** получаем значения соответствующие колонкам
      *
      * @return string
      */

@@ -2,15 +2,11 @@
 
 namespace core;
 
-use helpers\Debug;
-
 class FormRequest extends Request
 {
-    public $validation;
-    public $response;
-
-    public $message = array();
-    public $answer = array();
+    private $validation;
+    private $message = array();
+    private $answer = array();
 
     public function __construct()
     {
@@ -20,8 +16,6 @@ class FormRequest extends Request
 
         $this->answer = include_once $_SERVER['DOCUMENT_ROOT'] . '/resources/lang/ru/validation.php';
     }
-
-
 
     public function checkPost()
     {
@@ -166,7 +160,6 @@ class FormRequest extends Request
 
         return $this->message;
     }
-
 
 
 

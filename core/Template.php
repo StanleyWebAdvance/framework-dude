@@ -15,7 +15,7 @@ class Template
      * @param array $params
      * @return bool
      */
-    public function Render($uri, array $params = array())
+    public function render($uri, array $params = array())
     {
         $blade = new Blade(self::VIEW_PATH, self::CACHE_PATH);
 
