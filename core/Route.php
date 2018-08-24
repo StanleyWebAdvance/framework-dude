@@ -73,15 +73,9 @@ class Route
 
         if (!empty($this->routeCollection[$uri][$realMethod]['param'])) {
 
-            $controllerObject->$action($this->request, $this->routeCollection[$uri][$realMethod]['param']);
+            $controllerObject->$action($this->routeCollection[$uri][$realMethod]['param']);
             return true;
         }
-
-//        if ($this->request->isPost()) {
-//
-//            $controllerObject->$action($this->request);
-//            return true;
-//        }
 
         $controllerObject->$action();
         return true;
