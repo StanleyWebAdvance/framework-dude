@@ -7,15 +7,11 @@ use PHPMailer\PHPMailer\Exception;
 
 class Mailer
 {
-    protected $mail;
+    public $mail;
     protected function __construct() {}
 
 
-
-
     //todo дописать mailer
-
-
 
 
     public function getInstance()
@@ -36,12 +32,12 @@ class Mailer
             $this->mail->SMTPSecure = $configDB->parseConfig('MAIL_SMTPSecure');  // Enable TLS encryption, `ssl` also accepted
             $this->mail->Port = $configDB->parseConfig('MAIL_PORT');              // TCP port to connect to
         }
+
         return $this->mail;
     }
 
-    public function send()
+    public function send($toMail, $fromAddress, $mailReply, $subject, $body)
     {
-
         try {
 
             //Recipients
