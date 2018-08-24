@@ -38,6 +38,11 @@ class Console
                 echo ' done';
                 break;
 
+            case "Request" :
+                $this->createRequest($arguments[2]);
+                echo ' done';
+                break;
+
             default :
                 $this->help();
                 break;
@@ -45,15 +50,33 @@ class Console
         return true;
     }
 
+
+
+
+
+
+
+
+    //todo почему-то не могу вынести методы в другой класс пишет Фатал нет класса
+
     protected function createController($name)
     {
-        echo $name . '-cont ';
+        echo $name . ' - Controller ';
     }
 
     protected function createModel($name)
     {
-        echo $name . '-model ';
+        echo $name . ' - Model ';
     }
+
+    protected function createRequest($name)
+    {
+        echo $name . ' - Request ';
+    }
+
+
+
+
 
 
     private static function sayHello()
@@ -71,7 +94,7 @@ class Console
     private function help()
     {
         echo '
-              HELP: ---  make:{Controller/Model} {Name}
+              HELP: ---  make:{Controller/Model/Request} {Name}
               ';
     }
 }

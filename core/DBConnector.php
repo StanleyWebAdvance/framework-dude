@@ -2,7 +2,6 @@
 
 namespace core;
 
-use config\Config;
 
 class DBConnector
 {

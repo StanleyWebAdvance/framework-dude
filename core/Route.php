@@ -77,11 +77,11 @@ class Route
             return true;
         }
 
-        if ($this->request->isPost()) {
-
-            $controllerObject->$action($this->request);
-            return true;
-        }
+//        if ($this->request->isPost()) {
+//
+//            $controllerObject->$action($this->request);
+//            return true;
+//        }
 
         $controllerObject->$action();
         return true;

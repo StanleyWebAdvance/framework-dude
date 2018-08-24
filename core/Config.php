@@ -1,6 +1,6 @@
 <?php
 
-namespace config;
+namespace core;
 
 use helpers\Debug;
 

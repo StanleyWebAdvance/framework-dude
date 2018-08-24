@@ -14,6 +14,8 @@ class Request
     private $files;
     private $session;
 
+    public $rules = array();
+
     public function __construct()
     {
         $this->get = $_GET;
@@ -35,6 +37,39 @@ class Request
         return $this->getArr($this->post, $name);
     }
 
+    /** возвращаем значение с массива гет по ключу
+     *  либо весь массив
+     *
+     * @param null $name
+     * @return array|mixed|null
+     */
+    public function get($name = null)
+    {
+        return $this->getArr($this->get, $name);
+    }
+
+    /** возвращаем значение с массива файлс по ключу
+     *  либо весь массив
+     *
+     * @param null $name
+     * @return array|mixed|null
+     */
+    public function files($name = null)
+    {
+        return $this->getArr($this->files, $name);
+    }
+
+    /** возвращаем значение с массива сесии по ключу
+     *  либо весь массив
+     *
+     * @param null $name
+     * @return array|mixed|null
+     */
+    public function session($name = null)
+    {
+        return $this->getArr($this->session, $name);
+    }
+
     /** возвращаем значение с массива сервер по ключу
      *  либо весь массив
      *
@@ -46,6 +81,10 @@ class Request
         return $this->getArr($this->server, $name);
     }
 
+    /** получаем текущий метод
+     *
+     * @return mixed
+     */
     public function getMethod()
     {
         return $this->server['REQUEST_METHOD'];

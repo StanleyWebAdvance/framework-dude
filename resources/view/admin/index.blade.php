@@ -1,12 +1,5 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+@extends('admin.layouts.base')
 
+@section('content')
 <a href="/login">Вход</a>
-
-</body>
-</html>
+@endsection

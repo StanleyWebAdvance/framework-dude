@@ -4,8 +4,6 @@ namespace helpers;
 
 class Debug
 {
-
-
     public static function dump()
     {
         ob_start();

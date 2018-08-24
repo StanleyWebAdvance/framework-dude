@@ -1,25 +1,35 @@
-<!doctype html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
-</head>
-<body>
+@extends('admin.layouts.base')
 
-<p>{{ $error }}</p>
+@section('content')
 
-<form action="/login" method="post">
 
-    <input type="text" name="name" value="">
 
-    <button type="submit">Отправить</button>
+    @if($errors)
+        <ul>
+        @foreach($errors as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    @endif
 
-</form>
 
-<a href="/">на главную</a>
 
-</body>
-</html>
+
+    <form action="/login" method="post">
+
+        <input type="text" name="name" value="">
+
+        <button type="submit">Отправить</button>
+
+    </form>
+
+    <a href="/">на главную</a>
+
+@endsection
+
+
+@section('script')
+    <script src="/assets/formAjax.js"></script>
+@endsection
+
+
