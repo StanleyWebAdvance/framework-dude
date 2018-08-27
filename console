@@ -1,8 +1,11 @@
 #!/usr/bin/env php
 <?php
 
-include_once __DIR__ . "/core/console/Console.php";
+//include_once __DIR__ . "/core/console/Console.php";
+//include_once __DIR__ . "/core/console/CreateFile.php";
+//include_once __DIR__ . "/core/console/Help.php";
 
+spl_autoload_register();
 
 new \core\console\Console($argv);
 

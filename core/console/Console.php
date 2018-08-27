@@ -16,7 +16,7 @@ class Console
         return true;
     }
 
-    private function parseCommand($arguments)
+    public function parseCommand($arguments)
     {
         $argsArr = explode(':', $arguments[1]);
 
@@ -29,17 +29,25 @@ class Console
         switch ($argsArr[1]) {
 
             case "Controller" :
-                $this->createController($arguments[2]);
+
+                CreateFile::createController($arguments[2]);
+
+//                $this->createController($arguments[2]);
                 echo ' done';
                 break;
 
             case "Model" :
-                $this->createModel($arguments[2]);
+                CreateFile::createModel($arguments[2]);
                 echo ' done';
                 break;
 
             case "Request" :
-                $this->createRequest($arguments[2]);
+                CreateFile::createRequest($arguments[2]);
+                echo ' done';
+                break;
+
+            case "Middleware" :
+                CreateFile::createMiddleware($arguments[2]);
                 echo ' done';
                 break;
 
@@ -49,35 +57,6 @@ class Console
         }
         return true;
     }
-
-
-
-
-
-
-
-
-    //todo почему-то не могу вынести методы в другой класс пишет Фатал нет класса
-
-    protected function createController($name)
-    {
-        echo $name . ' - Controller ';
-    }
-
-    protected function createModel($name)
-    {
-        echo $name . ' - Model ';
-    }
-
-    protected function createRequest($name)
-    {
-        echo $name . ' - Request ';
-    }
-
-
-
-
-
 
     private static function sayHello()
     {
@@ -93,8 +72,6 @@ class Console
 
     private function help()
     {
-        echo '
-              HELP: ---  make:{Controller/Model/Request} {Name}
-              ';
+       Help::Help();
     }
 }
