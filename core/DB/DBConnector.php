@@ -14,7 +14,7 @@ class DBConnector
     {
         try {
 
-            $configDB = new Config('.en1v');
+            $configDB = new Config('.env');
         } catch (ErrorHandler $e) {
 
             $e->logError();
