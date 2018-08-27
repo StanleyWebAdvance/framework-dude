@@ -2,6 +2,7 @@
 
 use core\route\Route;
 use core\request\Request;
+use core\exception\ErrorHandler;
 
 $request = new Request();
 $router = new Route($request);
@@ -17,4 +18,11 @@ $router->get('/admin', 'PageController@admin', 'Page');
 
 
 
-$router->run();
+
+try {
+
+    $router->run();
+} catch (ErrorHandler $e) {
+
+    $e->logError();
+}

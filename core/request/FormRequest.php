@@ -3,6 +3,7 @@
 namespace core\request;
 
 use helpers\Debug;
+use core\exception\ErrorHandler;
 
 class FormRequest extends Request
 {
@@ -35,8 +36,7 @@ class FormRequest extends Request
                 || $this->session('_token') == null
                     || !hash_equals($this->post('_token'), $this->session('_token'))) {
 
-            //todo обработать ошибку токена
-            Debug::dump('token error');
+            throw new ErrorHandler('Токен не соответствует либо не создан (_token)');
         }
 
         //  запускаем цикл по полям правил валидации

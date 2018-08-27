@@ -1,17 +1,22 @@
-<?php
-
-namespace app\controllers;
+<?php namespace app\controllers;
 
 use app\requests\PageRequest;
+use core\DB\DBConnector;
+use core\exception\ErrorHandler;
 use core\template\Controller;
+use app\models\PageModel;
+use helpers\Debug;
 
 class PageController extends Controller
 {
     public function index()
     {
+        $pages = new PageModel(DBConnector::getInstance());
+
         return $this->view('admin/index', array(
 
-            'title' => 'Главная'
+            'title' => 'Главная',
+            'pages' => $pages->getAll()
         ));
     }
 
@@ -28,7 +33,19 @@ class PageController extends Controller
     {
         $request = new PageRequest();
         $request->rules();
-        $message = $request->checkPost();
+
+        try {
+
+            $message = $request->checkPost();
+
+        } catch (ErrorHandler $e) {
+
+            $e->logError();
+            exit();
+        }
+
+
+
 
         if ($message['error']) {
 

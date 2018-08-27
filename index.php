@@ -4,6 +4,9 @@ spl_autoload_register();
 
 session_start();
 
+
+
+
 require __DIR__ . '/vendor/autoload.php';
 
 include_once __DIR__ .  "/routes/web.php";

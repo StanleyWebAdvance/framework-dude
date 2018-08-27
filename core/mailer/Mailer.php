@@ -2,6 +2,7 @@
 
 namespace core\mailer;
 
+use core\exception\ErrorHandler;
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 
@@ -20,7 +21,12 @@ class Mailer
     {
         if(empty($this->mail)) {
 
-            $configDB = new Config('.env');
+            try {
+
+                $configDB = new Config('.env');
+            } catch (ErrorHandler $e) {
+                $e->logError();
+            }
 
             $this->mail = new PHPMailer(true); // Passing `true` enables exceptions
 

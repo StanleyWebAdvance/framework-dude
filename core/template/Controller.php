@@ -2,6 +2,8 @@
 
 namespace core\template;
 
+use core\exception\ErrorHandler;
+
 class Controller
 {
     private $template;

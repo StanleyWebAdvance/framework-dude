@@ -2,7 +2,7 @@
 
 namespace core;
 
-use helpers\Debug;
+use core\exception\ErrorHandler;
 
 class Config
 {
@@ -13,9 +13,7 @@ class Config
     {
         if (!file_exists($fileName)) {
 
-            //  todo обработать ошибку
-            Debug::dump("файл не найден решить что-то с ошибками");
-            return false;
+            throw new ErrorHandler('Файл ' . $fileName . ' не найден');
         }
 
         $this->fileName = $fileName;

@@ -3,6 +3,7 @@
 namespace core\route;
 
 use core\request\Request;
+use core\exception\ErrorHandler;
 use helpers\Debug;
 
 class Route
@@ -71,9 +72,7 @@ class Route
         //  проверяем соответствует ли метод заявленому
         if (!isset($this->routeCollection[$uri][$realMethod])) {
 
-            //  todo обработать ошибку
-            Debug::dump('такого метода не сущствует');
-            return false;
+            throw new ErrorHandler('Пришли на страницу не тем методом');
         }
 
         //  запускаем мидлеваре
@@ -111,16 +110,14 @@ class Route
     {
         $nameMiddleware = $nameMiddleware . 'Middleware';
 
-        if (file_exists('app\middleware\\' . $nameMiddleware . '.php')) {
+        if (!file_exists('app\middleware\\' . $nameMiddleware . '.php')) {
 
-            $middleware = 'app\middleware\\' . $nameMiddleware;
-            $middleware = new $middleware($this->request);
-            return $middleware->checkAccess();
+            throw new ErrorHandler('Файл ' . $nameMiddleware . ' не найден.');
         }
 
-        //todo обработать ошибку
-
-        return true;
+        $middleware = 'app\middleware\\' . $nameMiddleware;
+        $middleware = new $middleware($this->request);
+        return $middleware->checkAccess();
     }
 
     /**
@@ -129,13 +126,14 @@ class Route
      */
     private function systemPage($page)
     {
+        if (!file_exists('core\template\Controller.php')) {
+
+            throw new ErrorHandler('Файл Controller.php не найден.');
+        }
+
         $controller = 'core\template\Controller';
         $controller = new $controller;
-        $controller->systemPage($page);
-
-        //todo обработать ошибку
-
-        return true;
+        return $controller->systemPage($page);
     }
 
     //  todo объеденить эти 2 метода
