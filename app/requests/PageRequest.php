@@ -2,11 +2,10 @@
 
 namespace app\requests;
 
-use core\FormRequest;
+use core\request\FormRequest;
 
 class PageRequest extends FormRequest
 {
-
     public function rules()
     {
 

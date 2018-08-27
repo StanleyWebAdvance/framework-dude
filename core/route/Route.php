@@ -1,17 +1,21 @@
 <?php
 
-namespace core;
+namespace core\route;
 
+use core\request\Request;
 use helpers\Debug;
 
 class Route
 {
     private $routeCollection = array();
     protected $request;
+    protected $middleware;
 
     public function __construct(Request $request)
     {
         $this->request = $request;
+
+        $this->middleware = new Middleware($request);
     }
 
     /** вызов роута из web.php
@@ -21,8 +25,7 @@ class Route
      */
     public function __call($name, $arguments)
     {
-        $this->getControllerMethod($arguments[0], $arguments[1], $name);
-
+        $this->getControllerMethod($arguments[0], $arguments[1], $arguments[2], $name);
     }
 
     /** заполняем массив контроллеров
@@ -31,14 +34,16 @@ class Route
      * @param $uri
      * @param $controller
      */
-    private function getControllerMethod($uri, $controller, $method)
+    private function getControllerMethod($uri, $controller, $middleware = null, $method)
     {
         $param = explode("@", $controller);
 
         $controller = sprintf('app\controllers\%s', $param[0]);
 
         $this->routeCollection[$this->parseUri($uri)][mb_strtolower($method)] = array(
+
             'action' => $param[1],
+            'middleware' => $middleware,
             'controllerObject' => new $controller(),
             'param' => $this->parseParam($uri),
         );
@@ -54,13 +59,16 @@ class Route
     {
         $uri = $this->request->server('REQUEST_URI');
 
+        //  проверям есть ли такой роут в нашей коллекции
         if (!isset($this->routeCollection[$uri])) {
 
             return $this->systemPage('404');
         }
 
+        //  получаем реальный метод обращения на страницу
         $realMethod = mb_strtolower($this->request->getMethod());
 
+        //  проверяем соответствует ли метод заявленому
         if (!isset($this->routeCollection[$uri][$realMethod])) {
 
             //  todo обработать ошибку
@@ -68,16 +76,50 @@ class Route
             return false;
         }
 
+        //  запускаем мидлеваре
+        if (!empty($this->routeCollection[$uri][$realMethod]['middleware'])) {
+
+            if (!$this->middleware($this->routeCollection[$uri][$realMethod]['middleware'])) {
+
+                //  если мидлеваре вернул фалсе то доступа по роуту нет, 404
+                return $this->systemPage('404');
+            }
+        }
+
+        //  получем нужный контроллер и метод
         $controllerObject = $this->routeCollection[$uri][$realMethod]['controllerObject'];
         $action = $this->routeCollection[$uri][$realMethod]['action'];
 
+        //  если в массиве есть параметры запускаем метод контроллера с параметрами
         if (!empty($this->routeCollection[$uri][$realMethod]['param'])) {
 
             $controllerObject->$action($this->routeCollection[$uri][$realMethod]['param']);
             return true;
         }
 
+        //  запускаем метод контроллера
         $controllerObject->$action();
+        return true;
+    }
+
+    /** подключаем соответствующий мидлеваре
+     *
+     * @param $nameMiddleware
+     * @return bool
+     */
+    private function middleware($nameMiddleware)
+    {
+        $nameMiddleware = $nameMiddleware . 'Middleware';
+
+        if (file_exists('app\middleware\\' . $nameMiddleware . '.php')) {
+
+            $middleware = 'app\middleware\\' . $nameMiddleware;
+            $middleware = new $middleware($this->request);
+            return $middleware->checkAccess();
+        }
+
+        //todo обработать ошибку
+
         return true;
     }
 
@@ -87,9 +129,12 @@ class Route
      */
     private function systemPage($page)
     {
-        $controller = 'app\controllers\BaseController';
+        $controller = 'core\template\Controller';
         $controller = new $controller;
         $controller->systemPage($page);
+
+        //todo обработать ошибку
+
         return true;
     }
 

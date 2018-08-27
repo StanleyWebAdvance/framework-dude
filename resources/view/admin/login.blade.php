@@ -2,8 +2,6 @@
 
 @section('content')
 
-
-
     @if($errors)
         <ul>
         @foreach($errors as $error)
@@ -12,12 +10,11 @@
         </ul>
     @endif
 
-
-
-
     <form action="/login" method="post">
 
         <input type="text" name="name" value="">
+
+        <input type="hidden" name="_token" value="{{ $_token }}">
 
         <button type="submit">Отправить</button>
 
@@ -28,8 +25,5 @@
 @endsection
 
 
-@section('script')
-    <script src="/assets/formAjax.js"></script>
-@endsection
 
 

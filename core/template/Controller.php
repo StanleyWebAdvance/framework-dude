@@ -1,8 +1,8 @@
 <?php
 
-namespace core;
+namespace core\template;
 
-class BaseController
+class Controller
 {
     private $template;
 
@@ -19,6 +19,7 @@ class BaseController
      */
     protected function view($uriView, array $params = array())
     {
+        $params['_token'] = Token::generate();
         return $this->template->render($uriView, $params);
     }
 
@@ -31,4 +32,14 @@ class BaseController
     {
         return $this->template->render($page);
     }
+
+    /** перенаправлние по адресу
+     *
+     * @param $uri
+     */
+    public function redirect($uri)
+    {
+        header('Location: ' . $_SERVER['HTTP_ORIGIN'] . $uri);
+    }
+
 }

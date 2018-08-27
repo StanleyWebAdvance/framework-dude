@@ -1,8 +1,8 @@
 <?php
 
-namespace core;
+namespace core\DB;
 
-class BaseModel
+class Model
 {
     private $db;
     private $table;

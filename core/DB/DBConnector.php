@@ -1,6 +1,8 @@
 <?php
 
-namespace core;
+namespace core\DB;
+
+use core\Config;
 
 class DBConnector
 {

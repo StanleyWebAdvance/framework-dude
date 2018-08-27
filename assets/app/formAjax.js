@@ -7,7 +7,7 @@ jQuery(document).ready(function () {
     //
     //     event.preventDefault();
     //
-    //     ObjectPlazaJs.callbackResponsFb(jQuery(this), '.modal-form');
+    //     ObjectPlazaJs.callbackResponseFb(jQuery(this), '.modal-form');
     // });
 
 
@@ -21,7 +21,7 @@ jQuery(document).ready(function () {
 
 ObjectPlazaJs = {
 
-    callbackResponsFb: function (that, nameForm) {
+    callbackResponseFb: function (that, nameForm) {
 
         var formData = that.serialize();
         var action = that.attr('action');

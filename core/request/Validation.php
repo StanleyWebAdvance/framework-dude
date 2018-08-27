@@ -1,6 +1,8 @@
 <?php
 
-namespace core;
+namespace core\request;
+
+use core\Config;
 
 class Validation
 {

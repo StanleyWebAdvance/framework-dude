@@ -3,14 +3,10 @@
 namespace app\controllers;
 
 use app\requests\PageRequest;
-use core\BaseController;
-use helpers\Debug;
-use Intervention\Image\Image;
+use core\template\Controller;
 
-class PageController extends BaseController
+class PageController extends Controller
 {
-
-
     public function index()
     {
         return $this->view('admin/index', array(
@@ -18,8 +14,6 @@ class PageController extends BaseController
             'title' => 'Главная'
         ));
     }
-
-
 
     public function login($errors = array())
     {
@@ -30,9 +24,7 @@ class PageController extends BaseController
         ));
     }
 
-
-
-    public function admin()
+    public function enter()
     {
         $request = new PageRequest();
         $request->rules();
@@ -43,24 +35,17 @@ class PageController extends BaseController
             return $this->login($message['errors']);
         }
 
+        $this->redirect('/admin');
+        return true;
+    }
 
-
-
-        // todo протестировать image
-
-        $image = new Image();
-
-
-
-
-
-        //  todo    почемуто с адресной строке не пишется admin
+    public function admin()
+    {
         return $this->view('admin/admin', array(
 
             'title' => 'Вход'
         ));
     }
-
 
 
 

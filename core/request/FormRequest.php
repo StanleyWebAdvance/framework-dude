@@ -1,6 +1,8 @@
 <?php
 
-namespace core;
+namespace core\request;
+
+use helpers\Debug;
 
 class FormRequest extends Request
 {
@@ -17,15 +19,27 @@ class FormRequest extends Request
         $this->answer = include_once $_SERVER['DOCUMENT_ROOT'] . '/resources/lang/ru/validation.php';
     }
 
+    /** валидация массива пост
+     *
+     * @return array
+     */
     public function checkPost()
     {
-
         $this->message['error'] = false;
         $this->message['errors'] = array();
         $this->message['redirect'] = false;
         $this->message['ok'] = $this->answer['ok'];
 
+        //  проверяем пришел ли токен
+        if (($this->post('_token')) == null
+                || $this->session('_token') == null
+                    || !hash_equals($this->post('_token'), $this->session('_token'))) {
 
+            //todo обработать ошибку токена
+            Debug::dump('token error');
+        }
+
+        //  запускаем цикл по полям правил валидации
         foreach ($this->rules as $nameRules => $rule) {
 
             //  проверяем поле на заполнение по правилу required

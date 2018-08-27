@@ -1,9 +1,11 @@
 <?php
 
-namespace core;
+namespace core\mailer;
 
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
+
+use core\Config;
 
 class Mailer
 {

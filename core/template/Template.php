@@ -1,13 +1,14 @@
 <?php
 
-namespace core;
+namespace core\template;
 
+use helpers\Debug;
 use Philo\Blade\Blade;
 
 class Template
 {
-    const CACHE_PATH = __DIR__ . '/../storage/cache/view';
-    const VIEW_PATH = __DIR__ . '/../resources/view/';
+    const CACHE_PATH = __DIR__ . '/../../storage/cache/view';
+    const VIEW_PATH = __DIR__ . '/../../resources/view/';
 
     /** подключаем шаблон и передаем параметры
      *
