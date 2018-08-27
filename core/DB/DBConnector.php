@@ -14,10 +14,11 @@ class DBConnector
     {
         try {
 
-            $configDB = new Config('.env');
+            $configDB = new Config('.en1v');
         } catch (ErrorHandler $e) {
 
             $e->logError();
+            exit();
         }
 
         if(empty(self::$instance)) {

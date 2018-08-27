@@ -25,4 +25,5 @@ try {
 } catch (ErrorHandler $e) {
 
     $e->logError();
+    exit();
 }

@@ -25,7 +25,9 @@ class Mailer
 
                 $configDB = new Config('.env');
             } catch (ErrorHandler $e) {
+
                 $e->logError();
+                exit();
             }
 
             $this->mail = new PHPMailer(true); // Passing `true` enables exceptions

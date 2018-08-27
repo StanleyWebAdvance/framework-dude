@@ -5,7 +5,6 @@ use core\DB\DBConnector;
 use core\exception\ErrorHandler;
 use core\template\Controller;
 use app\models\PageModel;
-use helpers\Debug;
 
 class PageController extends Controller
 {
@@ -37,15 +36,11 @@ class PageController extends Controller
         try {
 
             $message = $request->checkPost();
-
         } catch (ErrorHandler $e) {
 
             $e->logError();
             exit();
         }
-
-
-
 
         if ($message['error']) {
 
