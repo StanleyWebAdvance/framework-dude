@@ -20,34 +20,31 @@ class Console
     {
         $argsArr = explode(':', $arguments[1]);
 
-        if ($argsArr[0] != 'make') {
+        if ($argsArr[0] != 'make' || $arguments[2] == null) {
 
             $this->help();
             return true;
         }
+        
+        switch (mb_strtolower($argsArr[1])) {
 
-        switch ($argsArr[1]) {
-
-            case "Controller" :
-
-                CreateFile::createController($arguments[2]);
-
-//                $this->createController($arguments[2]);
+            case "controller" :
+                File::create('Controller', 'app/controllers', $arguments[2]);
                 echo ' done';
                 break;
 
-            case "Model" :
-                CreateFile::createModel($arguments[2]);
+            case "model" :
+                File::create("Model", 'app/models', $arguments[2]);
                 echo ' done';
                 break;
 
-            case "Request" :
-                CreateFile::createRequest($arguments[2]);
+            case "request" :
+                File::create("Request", 'app/requests', $arguments[2]);
                 echo ' done';
                 break;
 
-            case "Middleware" :
-                CreateFile::createMiddleware($arguments[2]);
+            case "middleware" :
+                File::create("Middleware", 'app/middleware', $arguments[2]);
                 echo ' done';
                 break;
 

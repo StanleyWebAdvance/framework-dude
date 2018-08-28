@@ -1,8 +1,9 @@
-<?php namespace app\controllers;
+<?php
+
+namespace app\controllers;
 
 use app\requests\PageRequest;
 use core\DB\DBConnector;
-use core\exception\ErrorHandler;
 use core\template\Controller;
 use app\models\PageModel;
 
@@ -32,15 +33,7 @@ class PageController extends Controller
     {
         $request = new PageRequest();
         $request->rules();
-
-        try {
-
-            $message = $request->checkPost();
-        } catch (ErrorHandler $e) {
-
-            $e->logError();
-            exit();
-        }
+        $message = $request->checkPost();
 
         if ($message['error']) {
 

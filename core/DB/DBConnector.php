@@ -3,7 +3,6 @@
 namespace core\DB;
 
 use core\Config;
-use core\exception\ErrorHandler;
 
 class DBConnector
 {
@@ -12,14 +11,8 @@ class DBConnector
 
     public static function getInstance()
     {
-        try {
 
-            $configDB = new Config('.env');
-        } catch (ErrorHandler $e) {
-
-            $e->logError();
-            exit();
-        }
+        $configDB = new Config('.env');
 
         if(empty(self::$instance)) {
 
@@ -33,20 +26,10 @@ class DBConnector
                 "db_charset" => "UTF-8"
             );
 
-            //todo разобраться с ошибкой !!!
-
-            try {
-
-                self::$instance = new \PDO("mysql:host=".$db_info['db_host'].';port='.$db_info['db_port'].';dbname='.$db_info['db_name'], $db_info['db_user'], $db_info['db_pass']);
-                self::$instance->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_SILENT);
-                self::$instance->query('SET NAMES utf8');
-                self::$instance->query('SET CHARACTER SET utf8');
-
-            } catch(ErrorHandler $error) {
-
-                $error->getMessage();
-
-            }
+            self::$instance = new \PDO("mysql:host=".$db_info['db_host'].';port='.$db_info['db_port'].';dbname='.$db_info['db_name'], $db_info['db_user'], $db_info['db_pass']);
+            self::$instance->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_SILENT);
+            self::$instance->query('SET NAMES utf8');
+            self::$instance->query('SET CHARACTER SET utf8');
         }
         return self::$instance;
     }

@@ -1,0 +1,10 @@
+<? echo $php ?>
+
+namespace <? echo $path ?>;
+
+use core\template\Controller;
+
+class <? echo $name ?> extends Controller
+{
+
+}

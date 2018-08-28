@@ -1,10 +1,10 @@
-<?php
+<? echo $php ?>
 
-namespace app\middleware;
+namespace <? echo $path ?>;
 
 use core\route\Middleware;
 
-class PageMiddleware extends Middleware
+class <? echo $name ?> extends Middleware
 {
     public function checkAccess()
     {

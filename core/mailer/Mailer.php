@@ -2,10 +2,7 @@
 
 namespace core\mailer;
 
-use core\exception\ErrorHandler;
 use PHPMailer\PHPMailer\PHPMailer;
-use PHPMailer\PHPMailer\Exception;
-
 use core\Config;
 
 class Mailer
@@ -21,14 +18,7 @@ class Mailer
     {
         if(empty($this->mail)) {
 
-            try {
-
-                $configDB = new Config('.env');
-            } catch (ErrorHandler $e) {
-
-                $e->logError();
-                exit();
-            }
+            $configDB = new Config('.env');
 
             $this->mail = new PHPMailer(true); // Passing `true` enables exceptions
 
@@ -48,33 +38,24 @@ class Mailer
 
     public function send($toMail, $fromAddress, $mailReply, $subject, $body)
     {
-        try {
+        //Recipients
+        $this->mail->setFrom('from@example.com', 'Mailer');
+        $this->mail->addAddress('joe@example.net', 'Joe User');     // Add a recipient
+        $this->mail->addAddress('ellen@example.com');               // Name is optional
+        $this->mail->addReplyTo('info@example.com', 'Information');
+        $this->mail->addCC('cc@example.com');
+        $this->mail->addBCC('bcc@example.com');
 
-            //Recipients
-            $this->mail->setFrom('from@example.com', 'Mailer');
-            $this->mail->addAddress('joe@example.net', 'Joe User');     // Add a recipient
-            $this->mail->addAddress('ellen@example.com');               // Name is optional
-            $this->mail->addReplyTo('info@example.com', 'Information');
-            $this->mail->addCC('cc@example.com');
-            $this->mail->addBCC('bcc@example.com');
+        //Attachments
+        $this->mail->addAttachment('/var/tmp/file.tar.gz');         // Add attachments
+        $this->mail->addAttachment('/tmp/image.jpg', 'new.jpg');    // Optional name
 
-            //Attachments
-            $this->mail->addAttachment('/var/tmp/file.tar.gz');         // Add attachments
-            $this->mail->addAttachment('/tmp/image.jpg', 'new.jpg');    // Optional name
+        //Content
+        $this->mail->isHTML(true);                                  // Set email format to HTML
+        $this->mail->Subject = 'Here is the subject';
+        $this->mail->Body    = 'This is the HTML message body <b>in bold!</b>';
+        $this->mail->AltBody = 'This is the body in plain text for non-HTML mail clients';
 
-            //Content
-            $this->mail->isHTML(true);                                  // Set email format to HTML
-            $this->mail->Subject = 'Here is the subject';
-            $this->mail->Body    = 'This is the HTML message body <b>in bold!</b>';
-            $this->mail->AltBody = 'This is the body in plain text for non-HTML mail clients';
-
-            $this->mail->send();
-
-            echo 'Message has been sent';
-
-        } catch (Exception $e) {
-
-            echo 'Message could not be sent. Mailer Error: ', $this->mail->ErrorInfo;
-        }
+        $this->mail->send();
     }
 }

@@ -1,35 +1,33 @@
 <?php
 
+/**
+ *      starting point
+ */
+
+
+
+
 spl_autoload_register();
 
 session_start();
 
-
-
-
 require __DIR__ . '/vendor/autoload.php';
+
+(new \core\exception\ErrorHandler())->register();
 
 include_once __DIR__ .  "/routes/web.php";
 
 
-
-//function __autoload($classname) {
-//    include_once __DIR__ . DIRECTORY_SEPARATOR . str_replace('\\', DIRECTORY_SEPARATOR, $classname) . '.php';
-//}
-
-
+//\helpers\Debug::dd($_SERVER);
 
 
 
 
 /* -----  test  ---- */
 
-
-
-
-use core\Request;
-use app\controllers\PageController;
-use core\Console;
+//function __autoload($classname) {
+//    include_once __DIR__ . DIRECTORY_SEPARATOR . str_replace('\\', DIRECTORY_SEPARATOR, $classname) . '.php';
+//}
 
 //$console = new Console(array('qq', 'make:Model'));
 //

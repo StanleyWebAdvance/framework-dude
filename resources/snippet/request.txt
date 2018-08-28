@@ -1,0 +1,15 @@
+<? echo $php ?>
+namespace <? echo $path ?>;
+
+use core\request\FormRequest;
+
+class <? echo $name ?> extends FormRequest
+{
+    public function rules()
+    {
+        $this->rules = array(
+
+            // your rules
+        );
+    }
+}

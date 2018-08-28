@@ -26,6 +26,7 @@ class Route
      */
     public function __call($name, $arguments)
     {
+        $arguments[2] = isset($arguments[2]) ? $arguments[2] : null;
         $this->getControllerMethod($arguments[0], $arguments[1], $arguments[2], $name);
     }
 
@@ -35,7 +36,7 @@ class Route
      * @param $uri
      * @param $controller
      */
-    private function getControllerMethod($uri, $controller, $middleware = null, $method)
+    private function getControllerMethod($uri, $controller, $middleware, $method)
     {
         $param = explode("@", $controller);
 
