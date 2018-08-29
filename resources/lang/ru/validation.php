@@ -18,6 +18,9 @@ return array(
     'numeric'               => 'Используйте только цифры',
 
 
+    'requiredFile'          => 'Вы не выбрали файл',
+
+
     'password_confirm'      => 'Пароли не совпадают',
     'password_digits'       => 'Используйте в пароле цифру',
     'password_lowercase'    => 'Используйте в пароле маленькие буквы',

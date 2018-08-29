@@ -11,11 +11,11 @@ class Route
     protected $request;
     protected $middleware;
 
-    public function __construct(Request $request)
+    public function __construct()
     {
-        $this->request = $request;
+        $this->request = new Request();
 
-        $this->middleware = new Middleware($request);
+        $this->middleware = new Middleware($this->request);
     }
 
     /** вызов роута из web.php

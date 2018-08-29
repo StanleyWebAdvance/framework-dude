@@ -75,6 +75,15 @@ class File implements \FileInterface
         ));
     }
 
+    private static function genRequest($path, $name)
+    {
+        return self::render('resources/snippet/request.txt',  array(
+            'php' => '<?php ',
+            'path' => str_replace('/', '\\', $path),
+            'name' => $name
+        ));
+    }
+
     /** получаем нужный шаблон
      *  и заполняем его данными
      *

@@ -8,14 +8,15 @@ use app\models\PageModel;
 
 class PageController extends Controller
 {
-    public function index()
+    public function index($errors = array())
     {
         $pages = new PageModel();
 
         return $this->view('admin/index', array(
 
             'title' => 'Главная',
-            'pages' => $pages->getAll()
+            'pages' => $pages->getAll(),
+            'errors' => $errors
         ));
     }
 

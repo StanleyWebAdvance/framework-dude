@@ -14,8 +14,8 @@ class Middleware
         $this->request = $request;
     }
 
-    /** проверка доступа
-     *
+    /**
+     *  проверка доступа
      */
     protected function checkAccess()
     {

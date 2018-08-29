@@ -1,11 +1,11 @@
 <?php
 
-use core\route\Route;
-use core\request\Request;
+//  Подключаем роутер
+$router = new core\route\Route();
 
-$request = new Request();
-$router = new Route($request);
 
+
+//  Прописываем роуты приложения их методы и мидлевары
 
 $router->get('/', 'PageController@index');
 
@@ -15,5 +15,9 @@ $router->post('/login', 'PageController@enter');
 
 $router->get('/admin', 'PageController@admin', 'Page');
 
+$router->post('/upload/image', 'FileController@upload');
 
+
+
+//  Запускаем роутер
 $router->run();

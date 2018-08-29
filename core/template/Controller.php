@@ -3,7 +3,7 @@
 namespace core\template;
 use core\Container;
 
-abstract class Controller
+class Controller
 {
     private $template;
     public $container;

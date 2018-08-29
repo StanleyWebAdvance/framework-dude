@@ -180,7 +180,40 @@ class FormRequest extends Request
 
     public function checkFiles()
     {
+        $this->message['error'] = false;
+        $this->message['errors'] = array();
+        $this->message['redirect'] = false;
+        $this->message['ok'] = $this->answer['ok'];
 
+        //  проверяем пришел ли токен
+        if (($this->post('_token')) == null
+            || $this->session('_token') == null
+            || !hash_equals($this->post('_token'), $this->session('_token'))) {
+
+            throw new ErrorHandler('Токен не соответствует либо не создан (_token)');
+        }
+
+        //  запускаем цикл по полям правил валидации
+        foreach ($this->rules as $nameRules => $rule) {
+
+            //  проверяем поле на заполнение по правилу required
+            if (isset($rule['required']) && $rule['required']) {
+
+                if (empty($this->files($nameRules)['name'])) {
+
+                    $this->message['error'] = true;
+                    $this->message['errors']['requiredFile'] = $this->answer['requiredFile'];
+                    break;
+                }
+            }
+
+
+
+            //todo дописать проверку на разные типы файлов
+
+        }
+
+        return $this->message;
     }
 
 }

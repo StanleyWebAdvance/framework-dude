@@ -14,6 +14,8 @@ class Request
     private $files;
     private $session;
 
+    private $key;
+
     public $rules = array();
 
     public function __construct()
@@ -48,7 +50,7 @@ class Request
         return $this->getArr($this->get, $name);
     }
 
-    /** возвращаем значение с массива файлс по ключу
+    /** возвращаем значение с массива FILES по имени либо полностью
      *  либо весь массив
      *
      * @param null $name
@@ -56,7 +58,32 @@ class Request
      */
     public function files($name = null)
     {
-        return $this->getArr($this->files, $name);
+        return $this->key ? $this->filesKey($name, $this->key) : $this->getArr($this->files, $name);
+    }
+
+    /**
+     *  Возвращаем значение массима FILES по ключу
+     *
+     * @param $name
+     * @param $key
+     * @return mixed
+     */
+    private function filesKey($name, $key)
+    {
+        $this->key = null;
+        return $this->getArr($this->files, $name)[$key];
+    }
+
+    /**
+     *  Запоминаем ключ массива, чтоб вернуть по нему значение
+     *
+     * @param null $name
+     * @return $this
+     */
+    public function take($name = null)
+    {
+        $this->key = $name;
+        return $this;
     }
 
     /** возвращаем значение с массива сесии по ключу
@@ -117,7 +144,6 @@ class Request
     private function getArr(array $arr, $name = null)
     {
         if (!$name) return $arr;
-
         return (isset($arr[$name])) ? $arr[$name] : null;
     }
 }
