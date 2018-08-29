@@ -30,22 +30,22 @@ class Console
 
             case "controller" :
                 File::create('Controller', 'app/controllers', $arguments[2]);
-                echo ' done';
+                echo 'done';
                 break;
 
             case "model" :
                 File::create("Model", 'app/models', $arguments[2]);
-                echo ' done';
+                echo 'done';
                 break;
 
             case "request" :
                 File::create("Request", 'app/requests', $arguments[2]);
-                echo ' done';
+                echo 'done';
                 break;
 
             case "middleware" :
                 File::create("Middleware", 'app/middleware', $arguments[2]);
-                echo ' done';
+                echo 'done';
                 break;
 
             default :

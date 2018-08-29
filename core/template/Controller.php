@@ -1,16 +1,17 @@
 <?php
 
 namespace core\template;
+use core\Container;
 
-use core\exception\ErrorHandler;
-
-class Controller
+abstract class Controller
 {
     private $template;
+    public $container;
 
     public function __construct()
     {
         $this->template = new Template();
+        $this->container = new Container();
     }
 
     /** передаем данные для генерации шаблона

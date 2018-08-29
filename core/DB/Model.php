@@ -5,15 +5,14 @@ namespace core\DB;
 class Model
 {
     private $db;
-    private $table;
     private $where = '';
+    public $table;
     public $fillable = array();
     protected static $instance;
 
-    public function __construct($db, $table)
+    public function __construct()
     {
-        $this->db = $db;
-        $this->table = $table;
+        $this->db = DBConnector::getInstance();
     }
 
     /** Выбираем все элементы с таблицы

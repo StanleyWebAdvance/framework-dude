@@ -4,7 +4,6 @@ namespace core\route;
 
 use core\request\Request;
 use core\exception\ErrorHandler;
-use helpers\Debug;
 
 class Route
 {

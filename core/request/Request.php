@@ -120,13 +120,4 @@ class Request
 
         return (isset($arr[$name])) ? $arr[$name] : null;
     }
-
-    /** правила валидации
-     *  переопределяются в пользовательских методах
-     *
-     */
-    public function rules()
-    {
-        $this->rules = array();
-    }
 }

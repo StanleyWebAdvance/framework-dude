@@ -6,8 +6,11 @@ use core\DB\Model;
 
 class <? echo $name ?> extends Model
 {
-    public function __construct($db)
-    {
-        parent::__construct($db, '<? echo $table ?>');
-    }
+    //  your name table
+    public $table = '<? echo $table ?>';
+
+    public $fillable = array(
+
+        //  your column table
+    );
 }

@@ -5,11 +5,8 @@ use core\request\FormRequest;
 
 class <? echo $name ?> extends FormRequest
 {
-    public function rules()
-    {
-        $this->rules = array(
+    public $rules = array(
 
-            // your rules
-        );
-    }
+        //  your rules validation
+    );
 }

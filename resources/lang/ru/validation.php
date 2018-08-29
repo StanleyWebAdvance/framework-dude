@@ -23,8 +23,4 @@ return array(
     'password_lowercase'    => 'Используйте в пароле маленькие буквы',
     'password_uppercase'    => 'Используйте в пароле большие буквы',
 
-
-
-
-
 );

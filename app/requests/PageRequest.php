@@ -6,10 +6,7 @@ use core\request\FormRequest;
 
 class PageRequest extends FormRequest
 {
-    public function rules()
-    {
-
-        $this->rules = array(
+    public $rules = array(
 
             'name' => array(
 
@@ -18,10 +15,5 @@ class PageRequest extends FormRequest
                 'max' => 150,
                 'required' => true
             ),
-
-        );
-
-
-    }
-
+    );
 }

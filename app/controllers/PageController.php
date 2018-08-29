@@ -3,7 +3,6 @@
 namespace app\controllers;
 
 use app\requests\PageRequest;
-use core\DB\DBConnector;
 use core\template\Controller;
 use app\models\PageModel;
 
@@ -11,7 +10,7 @@ class PageController extends Controller
 {
     public function index()
     {
-        $pages = new PageModel(DBConnector::getInstance());
+        $pages = new PageModel();
 
         return $this->view('admin/index', array(
 
@@ -31,9 +30,11 @@ class PageController extends Controller
 
     public function enter()
     {
+
         $request = new PageRequest();
-        $request->rules();
         $message = $request->checkPost();
+
+
 
         if ($message['error']) {
 
