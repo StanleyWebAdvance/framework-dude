@@ -32,4 +32,13 @@ class PageController extends Controller
         ));
     }
 
+    public function admin($errors = array())
+    {
+        return $this->view('admin/admin', array(
+
+            'title' => 'Админ панль',
+            'errors' => $errors
+        ));
+    }
+
 }

@@ -112,7 +112,11 @@ class Route
 
         if (!file_exists('app\middleware\\' . $nameMiddleware . '.php')) {
 
-            throw new ErrorHandler('Файл ' . $nameMiddleware . ' не найден.');
+
+            //todo убрать
+
+            return true;
+//            throw new ErrorHandler('Файл ' . $nameMiddleware . ' не найден.');
         }
 
         $middleware = 'app\middleware\\' . $nameMiddleware;

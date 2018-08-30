@@ -6,15 +6,12 @@
         .logo-dude {
             margin: 20px 0 10px 0;
         }
-
         .logo-dude p {
             font-size: 25px;
         }
-
         .enter-dude {
             margin: 40px 0 30px 0;
         }
-
         .enter-dude a {
             text-decoration: none;
             font-size: 20px;
