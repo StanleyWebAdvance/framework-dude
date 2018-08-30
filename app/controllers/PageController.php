@@ -4,13 +4,13 @@ namespace app\controllers;
 
 use app\requests\PageRequest;
 use core\template\Controller;
-use app\models\PageModel;
+use app\models\PagesModel;
 
 class PageController extends Controller
 {
     public function index($errors = array())
     {
-        $pages = new PageModel();
+        $pages = new PagesModel();
 
         return $this->view('admin/index', array(
 

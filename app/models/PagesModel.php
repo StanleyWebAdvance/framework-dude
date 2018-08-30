@@ -4,9 +4,9 @@ namespace app\models;
 
 use core\DB\Model;
 
-class PageModel extends Model
+class PagesModel extends Model
 {
-    public $table = 'page';
+    public $table = 'pages';
 
     public $fillable = array(
 

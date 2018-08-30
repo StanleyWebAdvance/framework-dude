@@ -22,9 +22,9 @@ class File implements \FileInterface
 
         $newFile = fopen($file, 'w');
 
-        $nameMethod = 'gen' . $entity;
+        mb_strtolower($entity);
 
-        fwrite($newFile, self::$nameMethod($path, $name));
+        fwrite($newFile, self::$entity($path, $name));
 
         fclose($newFile);
     }
@@ -35,7 +35,7 @@ class File implements \FileInterface
      * @param $name
      * @return string
      */
-    private static function genController($path, $name)
+    private static function controller($path, $name)
     {
         return self::render('resources/snippet/controller.txt',  array(
             'php' => '<?php ',
@@ -50,13 +50,13 @@ class File implements \FileInterface
      * @param $name
      * @return string
      */
-    private static function genModel($path, $name)
+    private static function model($path, $name)
     {
         return self::render('resources/snippet/model.txt',  array(
             'php' => '<?php ',
             'path' => str_replace('/', '\\', $path),
             'name' => $name,
-            'table' => str_replace('Model', '', $name)
+            'table' => mb_strtolower(str_replace('Model', '', $name))
         ));
     }
 
@@ -66,7 +66,7 @@ class File implements \FileInterface
      * @param $name
      * @return string
      */
-    private static function genMiddleware($path, $name)
+    private static function middleware($path, $name)
     {
         return self::render('resources/snippet/middleware.txt',  array(
             'php' => '<?php ',
@@ -75,7 +75,13 @@ class File implements \FileInterface
         ));
     }
 
-    private static function genRequest($path, $name)
+    /** генерируем request
+     *
+     * @param $path
+     * @param $name
+     * @return string
+     */
+    private static function request($path, $name)
     {
         return self::render('resources/snippet/request.txt',  array(
             'php' => '<?php ',
