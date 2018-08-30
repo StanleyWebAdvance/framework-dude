@@ -2,21 +2,15 @@
 
 namespace app\controllers;
 
-use app\requests\PageRequest;
 use core\template\Controller;
-use app\models\PagesModel;
 
 class PageController extends Controller
 {
-    public function index($errors = array())
+    public function index()
     {
-        $pages = new PagesModel();
-
-        return $this->view('admin/index', array(
+        return $this->view('front/index', array(
 
             'title' => 'Главная',
-            'pages' => $pages->getAll(),
-            'errors' => $errors
         ));
     }
 
@@ -24,37 +18,18 @@ class PageController extends Controller
     {
         return $this->view('admin/login', array(
 
-            'title' => 'Вход',
+            'title' => 'Главная',
             'errors' => $errors
         ));
     }
 
-    public function enter()
+    public function registration($errors = array())
     {
+        return $this->view('admin/registration', array(
 
-        $request = new PageRequest();
-        $message = $request->checkPost();
-
-
-
-        if ($message['error']) {
-
-            return $this->login($message['errors']);
-        }
-
-        $this->redirect('/admin');
-        return true;
-    }
-
-    public function admin()
-    {
-        return $this->view('admin/admin', array(
-
-            'title' => 'Вход'
+            'title' => 'Главная',
+            'errors' => $errors
         ));
     }
-
-
-
 
 }

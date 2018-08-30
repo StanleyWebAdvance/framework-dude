@@ -1,17 +1,34 @@
-<!doctype html>
-<html lang="ru">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>404</title>
-</head>
-<body>
+@extends('admin.layouts.base')
 
-<p>Page not found 404</p>
+@section('style')
 
-<a href="/">На главную</a>
+    <style>
+        .not-found-dude{
+            margin: 177px 0 30px 0;
+        }
+        .not-found-dude p{
+            font-size: 177px;
+        }
+        .enter-dude a{
+            text-decoration: none;
+            font-size: 20px;
+        }
+    </style>
 
-</body>
-</html>
+@endsection
+
+@section('content')
+
+    <div class="row">
+        <div class="col-md-12 not-found-dude">
+            <p class="lead text-center">404</p>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12 text-center enter-dude">
+            <a href="/" >return to main page dude!</a>
+        </div>
+    </div>
+
+@endsection

@@ -38,7 +38,7 @@
 
         <div class="row">
             <div class="col-md-12 logo-dude">
-                <p class="lead text-center">Hey, whats up dude? Login please.</p>
+                <p class="lead text-center">Join us dude!</p>
             </div>
         </div>
 
@@ -55,12 +55,16 @@
             <div class="col"></div>
 
             <div class="col">
-                <form action="/login" method="post" class="form-login">
+                <form action="/registration" method="post" class="form-login">
+                    <div class="form-group">
+                        <label for="Name">Name</label>
+                        <input type="text" name="name" class="form-control" placeholder="Enter your name dude">
+                    </div>
                     <div class="form-group">
                         <label for="Email">Email</label>
                         <input type="email" name="email" class="form-control" aria-describedby="emailHelp"
                                placeholder="Enter your email address dude">
-                        <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone
+                        <small class="form-text text-muted">We'll never share your email with anyone
                             else.
                         </small>
                     </div>
@@ -73,7 +77,7 @@
                         <input type="checkbox" name="remember" class="form-check-input" checked="checked" id="check">
                         <label class="form-check-label" for="check">I will remember you dude</label>
                     </div>
-                    <button type="submit" class="btn btn-success">Login</button>
+                    <button type="submit" class="btn btn-success">Registration</button>
                 </form>
             </div>
 
@@ -82,6 +86,7 @@
         </div>
 
     </div>
+
 @endsection
 
 

@@ -30,33 +30,33 @@ class Console
      */
     public function parseCommand($arguments)
     {
-        $argsArr = explode(':', $arguments[1]);
+        $command = explode(':', $arguments[1]);
+        $entity = isset($arguments[2]) ? $arguments[2] : null;
 
-        if ($argsArr[0] != 'make' || $arguments[2] == null) {
+        if ($command[0] != 'make' || $entity == null) {
 
             $this->help();
-            return true;
         }
-        
-        switch (mb_strtolower($argsArr[1])) {
+
+        switch (mb_strtolower($command[1])) {
 
             case "controller" :
-                File::create('Controller', 'app/controllers', $arguments[2]);
+                File::create('Controller', 'app/controllers', $entity);
                 echo $this->answer['done'];
                 break;
 
             case "model" :
-                File::create("Model", 'app/models', $arguments[2]);
+                File::create("Model", 'app/models', $entity);
                 echo $this->answer['done'];
                 break;
 
             case "request" :
-                File::create("Request", 'app/requests', $arguments[2]);
+                File::create("Request", 'app/requests', $entity);
                 echo $this->answer['done'];
                 break;
 
             case "middleware" :
-                File::create("Middleware", 'app/middleware', $arguments[2]);
+                File::create("Middleware", 'app/middleware', $entity);
                 echo $this->answer['done'];
                 break;
 
