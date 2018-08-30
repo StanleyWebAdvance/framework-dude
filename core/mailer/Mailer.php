@@ -3,7 +3,7 @@
 namespace core\mailer;
 
 use PHPMailer\PHPMailer\PHPMailer;
-use core\Config;
+use core\config\Config;
 
 class Mailer
 {
@@ -18,19 +18,18 @@ class Mailer
     {
         if(empty($this->mail)) {
 
-            $configDB = new Config('.env');
 
             $this->mail = new PHPMailer(true); // Passing `true` enables exceptions
 
             //Server settings
-            $this->mail->SMTPDebug = $configDB->parseConfig('MAIL_SMTPDebug');    // Enable verbose debug output
+            $this->mail->SMTPDebug = Config::env('MAIL_SMTPDebug');    // Enable verbose debug output
             $this->mail->isSMTP();                                                      // Set mailer to use SMTP
-            $this->mail->Host = $configDB->parseConfig('MAIL_HOST');              // Specify main and backup SMTP servers
+            $this->mail->Host = Config::env('MAIL_HOST');              // Specify main and backup SMTP servers
             $this->mail->SMTPAuth = true;                                               // Enable SMTP authentication
-            $this->mail->Username = $configDB->parseConfig('MAIL_USERNAME');      // SMTP username
-            $this->mail->Password = $configDB->parseConfig('MAIL_PASSWORD');      // SMTP password
-            $this->mail->SMTPSecure = $configDB->parseConfig('MAIL_SMTPSecure');  // Enable TLS encryption, `ssl` also accepted
-            $this->mail->Port = $configDB->parseConfig('MAIL_PORT');              // TCP port to connect to
+            $this->mail->Username = Config::env('MAIL_USERNAME');      // SMTP username
+            $this->mail->Password = Config::env('MAIL_PASSWORD');      // SMTP password
+            $this->mail->SMTPSecure = Config::env('MAIL_SMTPSecure');  // Enable TLS encryption, `ssl` also accepted
+            $this->mail->Port = Config::env('MAIL_PORT');              // TCP port to connect to
         }
 
         return $this->mail;

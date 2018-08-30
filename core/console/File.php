@@ -16,7 +16,7 @@ class File implements \FileInterface
 
         if (file_exists($file)) {
 
-            echo 'file ' . $file . ' already exist!';
+            echo 'file ' . $file . ' already exist, bro! Check out.';
             exit();
         }
 

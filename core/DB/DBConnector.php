@@ -2,7 +2,8 @@
 
 namespace core\DB;
 
-use core\Config;
+
+use core\config\Config;
 
 class DBConnector
 {
@@ -12,17 +13,15 @@ class DBConnector
     public static function getInstance()
     {
 
-        $configDB = new Config('.env');
-
         if(empty(self::$instance)) {
 
             $db_info = array(
 
-                "db_host" => $configDB->parseConfig('DB_HOST'),
-                "db_port" => $configDB->parseConfig('DB_PORT'),
-                "db_user" => $configDB->parseConfig('DB_USERNAME'),
-                "db_pass" => $configDB->parseConfig('DB_PASSWORD'),
-                "db_name" => $configDB->parseConfig('DB_DATABASE'),
+                "db_host" => Config::env('DB_HOST'),
+                "db_port" => Config::env('DB_PORT'),
+                "db_user" => Config::env('DB_USERNAME'),
+                "db_pass" => Config::env('DB_PASSWORD'),
+                "db_name" => Config::env('DB_DATABASE'),
                 "db_charset" => "UTF-8"
             );
 

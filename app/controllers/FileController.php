@@ -2,9 +2,10 @@
 namespace app\controllers;
 
 use app\requests\FileRequest;
+use core\config\Config;
+use core\image\Image;
 use core\template\Controller;
-use helpers\Debug;
-use Intervention\Image\ImageManager;
+use helpers\String;
 
 class FileController extends Controller
 {
@@ -19,13 +20,17 @@ class FileController extends Controller
             return (new PageController())->index($message['errors']);
         }
 
-        Debug::dump($request->take('tmp_name')->files('image'));
 
-        Debug::dump($request->files('image'));
 
-        $image = new ImageManager();
+        $image = new Image();
 
-        $image->make($request->take('tmp_name')->files('image'))->save('storage/uploads/111.jpg');
+        $name = $request->take('name')->files('image');
+
+        $path = Config::storage('image') . String::translit($name);
+
+        $tmp_name = $request->take('tmp_name')->files('image');
+
+        $image->make($tmp_name)->save($path);
 
 
 

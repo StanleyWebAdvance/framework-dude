@@ -4,10 +4,16 @@ namespace core\console;
 
 class Console
 {
+    const ANSWER_PATH = 'config/console.php';
+    private $answer = array();
+
     public function __construct($arguments)
     {
+        $this->answer = include_once self::ANSWER_PATH;
+
         if (method_exists($this, $arguments[1])) {
 
+            mb_strtolower($arguments[1]);
             $this->$arguments[1]();
             return true;
         }
@@ -16,6 +22,12 @@ class Console
         return true;
     }
 
+    /**
+     *  Парсим имя команды
+     *
+     * @param $arguments
+     * @return bool
+     */
     public function parseCommand($arguments)
     {
         $argsArr = explode(':', $arguments[1]);
@@ -30,22 +42,22 @@ class Console
 
             case "controller" :
                 File::create('Controller', 'app/controllers', $arguments[2]);
-                echo 'done';
+                echo $this->answer['done'];
                 break;
 
             case "model" :
                 File::create("Model", 'app/models', $arguments[2]);
-                echo 'done';
+                echo $this->answer['done'];
                 break;
 
             case "request" :
                 File::create("Request", 'app/requests', $arguments[2]);
-                echo 'done';
+                echo $this->answer['done'];
                 break;
 
             case "middleware" :
                 File::create("Middleware", 'app/middleware', $arguments[2]);
-                echo 'done';
+                echo $this->answer['done'];
                 break;
 
             default :
@@ -55,20 +67,30 @@ class Console
         return true;
     }
 
-    private static function sayHello()
+    /**
+     * @return bool
+     */
+    private function hello()
     {
-        echo 'Hello word!';
+        echo $this->answer['hello'];
         return true;
     }
 
-    private static function info()
+    /**
+     * @return bool
+     */
+    private function info()
     {
-        echo 'Web-developer : Stanley and Ivan 21 august 2018';
+        echo $this->answer['info'];
         return true;
     }
 
+    /**
+     *  Подсказка по командам консоли
+     */
     private function help()
     {
-       Help::Help();
+        echo $this->answer['help'];
+        return true;
     }
 }
