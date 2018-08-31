@@ -112,11 +112,7 @@ class Route
 
         if (!file_exists('app\middleware\\' . $nameMiddleware . '.php')) {
 
-
-            //todo убрать
-
-            return true;
-//            throw new ErrorHandler('Файл ' . $nameMiddleware . ' не найден.');
+            throw new ErrorHandler('Файл ' . $nameMiddleware . ' не найден.');
         }
 
         $middleware = 'app\middleware\\' . $nameMiddleware;
@@ -164,7 +160,6 @@ class Route
     //  todo объеденить эти 2 метода
     private function parseUri($uri)
     {
-
         $uriArray = explode('/', $uri);
         $uriUser = explode('/', $this->request->server('REQUEST_URI'));
 

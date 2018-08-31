@@ -39,7 +39,7 @@
             </div>
         </div>
 
-        @if($errors)
+        @if(!empty($errors))
             <ul>
                 @foreach($errors as $error)
                     <li>{{ $error }}</li>
@@ -59,7 +59,7 @@
                     </div>
                     <div class="form-group">
                         <label for="Email">Email</label>
-                        <input type="email" name="email" class="form-control" aria-describedby="emailHelp"
+                        <input type="text" name="email" class="form-control" aria-describedby="emailHelp"
                                placeholder="Enter your email address dude">
                         <small class="form-text text-muted">We'll never share your email with anyone
                             else.
@@ -70,10 +70,16 @@
                         <input type="password" name="password" class="form-control"
                                placeholder="Enter your password dude">
                     </div>
+                    <div class="form-group">
+                        <label for="Password-confirm">Password confirm</label>
+                        <input type="password" name="password-confirm" class="form-control"
+                               placeholder="Confirm your password dude">
+                    </div>
                     <div class="form-group form-check">
                         <input type="checkbox" name="remember" class="form-check-input" checked="checked" id="check">
                         <label class="form-check-label" for="check">I will remember you dude</label>
                     </div>
+                    {{ $_token }}
                     <button type="submit" class="btn btn-success">Registration</button>
                 </form>
             </div>
@@ -85,7 +91,3 @@
     </div>
 
 @endsection
-
-
-
-

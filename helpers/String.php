@@ -37,5 +37,4 @@ class String
     {
         return str_replace(self::$alphabet['rus'], self::$alphabet['translit'], $text);
     }
-
 }

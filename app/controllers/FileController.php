@@ -1,11 +1,20 @@
 <?php 
 namespace app\controllers;
 
+
+/**********************************************************
+ *
+ *          Пример работы с файлом
+ *
+ **********************************************************/
+
+
 use app\requests\FileRequest;
 use core\config\Config;
 use core\image\Image;
 use core\template\Controller;
 use helpers\String;
+
 
 class FileController extends Controller
 {
@@ -17,7 +26,7 @@ class FileController extends Controller
 
         if ($message['error']) {
 
-            return (new PageController())->index($message['errors']);
+            return (new IndexController())->index($message['errors']);
         }
 
 

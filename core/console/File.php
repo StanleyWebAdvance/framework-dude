@@ -2,8 +2,15 @@
 
 namespace core\console;
 
+use helpers\Snippet;
+
 class File implements \FileInterface
 {
+    const PATH_CONTROLLER = 'resources/snippet/controller.txt';
+    const PATH_MODEL = 'resources/snippet/model.txt';
+    const PATH_REQUEST = 'resources/snippet/request.txt';
+    const PATH_MIDDLEWARE = 'resources/snippet/middleware.txt';
+
     /** создаем файл и запускаем нужный метод
      *
      * @param $entity
@@ -21,11 +28,8 @@ class File implements \FileInterface
         }
 
         $newFile = fopen($file, 'w');
-
         mb_strtolower($entity);
-
         fwrite($newFile, self::$entity($path, $name));
-
         fclose($newFile);
     }
 
@@ -37,7 +41,7 @@ class File implements \FileInterface
      */
     private static function controller($path, $name)
     {
-        return self::render('resources/snippet/controller.txt',  array(
+        return Snippet::render(self::PATH_CONTROLLER,  array(
             'php' => '<?php ',
             'path' => str_replace('/', '\\', $path),
             'name' => $name
@@ -52,7 +56,7 @@ class File implements \FileInterface
      */
     private static function model($path, $name)
     {
-        return self::render('resources/snippet/model.txt',  array(
+        return Snippet::render(self::PATH_MODEL,  array(
             'php' => '<?php ',
             'path' => str_replace('/', '\\', $path),
             'name' => $name,
@@ -68,7 +72,7 @@ class File implements \FileInterface
      */
     private static function middleware($path, $name)
     {
-        return self::render('resources/snippet/middleware.txt',  array(
+        return Snippet::render(self::PATH_MIDDLEWARE,  array(
             'php' => '<?php ',
             'path' => str_replace('/', '\\', $path),
             'name' => $name
@@ -83,26 +87,10 @@ class File implements \FileInterface
      */
     private static function request($path, $name)
     {
-        return self::render('resources/snippet/request.txt',  array(
+        return Snippet::render(self::PATH_REQUEST,  array(
             'php' => '<?php ',
             'path' => str_replace('/', '\\', $path),
             'name' => $name
         ));
     }
-
-    /** получаем нужный шаблон
-     *  и заполняем его данными
-     *
-     * @param $filePath
-     * @param array $params
-     * @return string
-     */
-    private static function render($filePath, array $params = array())
-    {
-        ob_start();
-        extract($params);
-        include_once $filePath;
-        return ob_get_clean();
-    }
-
 }

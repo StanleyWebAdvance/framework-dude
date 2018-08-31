@@ -1,7 +1,9 @@
 <?php
 
 namespace core\template;
+
 use core\Container;
+use Illuminate\Support\HtmlString;
 
 class Controller
 {
@@ -22,7 +24,11 @@ class Controller
      */
     protected function view($uriView, array $params = array())
     {
-        $params['_token'] = Token::generate();
+        $params['_token'] = new HtmlString(Token::generate());
+        $params['captcha'] = new HtmlString(Captcha::get());
+
+        //todo добавить автоматический вывод ошибок
+
         return $this->template->render($uriView, $params);
     }
 

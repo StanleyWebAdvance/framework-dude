@@ -2,11 +2,13 @@
 
 namespace core\request;
 
-use helpers\Debug;
 use core\exception\ErrorHandler;
 
 class FormRequest extends Request
 {
+    const ANSWER_RU = 'resources/lang/ru/validation.php';
+    const ANSWER_EN = 'resources/lang/en/validation.php';
+
     private $validation;
     private $message = array();
     private $answer = array();
@@ -17,7 +19,7 @@ class FormRequest extends Request
 
         $this->validation = new Validation();
 
-        $this->answer = include_once $_SERVER['DOCUMENT_ROOT'] . '/resources/lang/ru/validation.php';
+        $this->answer = include_once self::ANSWER_RU;
     }
 
     /** валидация массива пост
@@ -48,8 +50,9 @@ class FormRequest extends Request
                 if (empty($this->post($nameRules))){
 
                     $this->message['error'] = true;
-                    $this->message['errors']['required'] = $this->answer['required'];
-                    break;
+                    $this->message['errors']['required' . $nameRules]
+                            = sprintf($this->answer['required'], $rule['name']);
+                    continue;
                 }
             }
 
@@ -59,8 +62,8 @@ class FormRequest extends Request
                 if (!$this->validation->checkPhone($this->post($nameRules))){
 
                     $this->message['error'] = true;
-                    $this->message['errors']['phone'] = $this->answer['required'];
-                    break;
+                    $this->message['errors']['phone'] = $this->answer['phone'];
+                    continue;
                 }
             }
 
@@ -70,8 +73,8 @@ class FormRequest extends Request
                 if (!$this->validation->checkEmail($this->post($nameRules))){
 
                     $this->message['error'] = true;
-                    $this->message['errors']['email'] = $this->answer['required'];
-                    break;
+                    $this->message['errors']['email'] = $this->answer['email'];
+                    continue;
                 }
             }
 
@@ -81,8 +84,9 @@ class FormRequest extends Request
                 if(strlen($this->post($nameRules)) > $rule['max']){
 
                     $this->message['error'] = true;
-                    $this->message['errors']['max'] = sprintf($this->answer['max'], $rule['max']);
-                    break;
+                    $this->message['errors']['max' . $nameRules]
+                            = sprintf($this->answer['max'], $rule['name'], $rule['max']);
+                    continue;
                 }
             }
 
@@ -92,75 +96,77 @@ class FormRequest extends Request
                 if(strlen($this->post($nameRules)) < $rule['min']){
 
                     $this->message['error'] = true;
-                    $this->message['errors']['min'] = sprintf($this->answer['min'], $rule['min']);
-                    break;
+                    $this->message['errors']['min' . $nameRules]
+                            = sprintf($this->answer['min'], $rule['name'], $rule['min']);
+                    continue;
                 }
             }
 
             //  проверка на капчу
-            if (isset($rule['captcha']) && $rule['captcha']){
+            if ($nameRules == 'captcha'){
 
                 //  пришла ли капча в массиве пост
-                if ($this->post('g-recaptcha-response') != null) {
+                if (!is_null($this->post('g-recaptcha-response'))) {
 
                     //  проверяем верна ли капча
                     if (!$this->validation->reCaptchaSuccess($this->post('g-recaptcha-response'))) {
 
                         $this->message['error'] = true;
                         $this->message['errors']['captcha'] = $this->answer['captcha'];
+                        continue;
                     }
-                } else {
-
-                    $this->message['error'] = true;
-                    $this->message['errors']['captcha'] = $this->answer['captchaNOT'];
+                    continue;
                 }
+
+                $this->message['error'] = true;
+                $this->message['errors']['captcha'] = $this->answer['captchaNOT'];
+                continue;
             }
 
             //  проверяем на подтверждение пароль
             if (isset($rule['type']) && $rule['type'] == 'password'){
 
-                if ($this->post('password_confirm') != null){
+                if (!is_null($this->post('password-confirm'))){
 
-                    if ($this->post('password') != $this->post('password_confirm')){
+                    if ($this->post('password') != $this->post('password-confirm')){
 
                         $this->message['error'] = true;
-                        $this->message['errors']['password_confirm'] = $this->answer['password_confirm'];
-                        break;
+                        $this->message['errors']['password-confirm'] = $this->answer['password-confirm'];
+                        continue;
                     }
                 }
-
             }
 
             //  проверка на наличие цыфр в пароле
-            if (isset($rule['password_digits']) && $rule['password_digits']){
+            if (isset($rule['password-digits']) && $rule['password-digits']){
 
                 if (!$this->validation->checkDigits($this->post('password'))){
 
                     $this->message['error'] = true;
-                    $this->message['errors']['password_digits'] = $this->answer['password_digits'];
-                    break;
+                    $this->message['errors']['password-digits'] = $this->answer['password-digits'];
+                    continue;
                 }
             }
 
             //  проверка на наличие нижнего регистра букв в пароле
-            if (isset($rule['password_lowercase']) && $rule['password_lowercase']){
+            if (isset($rule['password-lowercase']) && $rule['password-lowercase']){
 
                 if (!$this->validation->checkLowercase($this->post('password'))){
 
                     $this->message['error'] = true;
-                    $this->message['errors']['password_lowercase'] = $this->answer['password_lowercase'];
-                    break;
+                    $this->message['errors']['password-lowercase'] = $this->answer['password-lowercase'];
+                    continue;
                 }
             }
 
             //  проверка на наличие верхнего регистра букв в пароле
-            if (isset($rule['password_uppercase']) && $rule['password_uppercase']){
+            if (isset($rule['password-uppercase']) && $rule['password-uppercase']){
 
                 if (!$this->validation->checkUppercase($this->post('password'))){
 
                     $this->message['error'] = true;
-                    $this->message['errors']['password_uppercase'] = $this->answer['password_uppercase'];
-                    break;
+                    $this->message['errors']['password-uppercase'] = $this->answer['password-uppercase'];
+                    continue;
                 }
             }
 
@@ -199,15 +205,13 @@ class FormRequest extends Request
             //  проверяем поле на заполнение по правилу required
             if (isset($rule['required']) && $rule['required']) {
 
-                if (empty($this->files($nameRules)['name'])) {
+                if (empty($this->take('name')->files($nameRules))) {
 
                     $this->message['error'] = true;
-                    $this->message['errors']['requiredFile'] = $this->answer['requiredFile'];
-                    break;
+                    $this->message['errors']['requiredFile' . $nameRules] = $this->answer['requiredFile'];
+                    continue;
                 }
             }
-
-
 
             //todo дописать проверку на разные типы файлов
 

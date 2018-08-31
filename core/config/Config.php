@@ -2,12 +2,14 @@
 
 namespace core\config;
 
-use core\exception\ErrorHandler;
+use helpers\File;
 
 class Config
 {
     const ENV_PATH = '.env';
     const STORAGE_PATH = 'config/storage.php';
+    const ERRORS = 'config/errors.php';
+    const STATUS = 'config/status.php';
 
     /**
      *  Получаем данные с файла .env
@@ -26,9 +28,31 @@ class Config
      * @param $config
      * @return mixed
      */
-    public static function storage($config)
+    public static function storage($config = null)
     {
-        return self::path($config, self::STORAGE_PATH);
+        return self::value($config, self::STORAGE_PATH);
+    }
+
+    /**
+     *  Получаем данные с файла errors
+     *
+     * @param $config
+     * @return mixed
+     */
+    public static function errors($config = null)
+    {
+        return self::value($config, self::ERRORS);
+    }
+
+    /**
+     *  Получаем данные с файла status
+     *
+     * @param $config
+     * @return mixed
+     */
+    public static function status($config = null)
+    {
+        return self::value($config, self::STATUS);
     }
 
     /**
@@ -38,10 +62,10 @@ class Config
      * @param $file
      * @return mixed
      */
-    private static function path($config, $file)
+    private static function value($config, $file)
     {
         $file = include_once $file;
-        return $file[$config];
+        return $config ? $file[$config] : $file;
     }
 
     /**
@@ -50,16 +74,10 @@ class Config
      * @param $config
      * @param $file
      * @return bool
-     * @throws ErrorHandler
      */
     private static function config($config, $file)
     {
-        if (!file_exists($file)) {
-
-            throw new ErrorHandler('Файл ' . $file . ' не найден');
-        }
-
-        return self::getConfig($config, self::getData($file));
+        return self::getConfig($config,  File::returnFileRows($file));
     }
 
     /** возвращаем параметр по имени config
@@ -68,32 +86,18 @@ class Config
      * @param $config
      * @return bool
      */
-    private static function getConfig($config, $data)
+    private static function getConfig($config, $rows)
     {
-        foreach ($data as $str){
+        foreach ($rows as $row){
 
-            $option = explode("=", $str);
+            $option = explode("=", $row);
 
             if ($config == trim($option[0])) {
 
                 return $option[1];
             }
         }
+
         return null;
-    }
-
-    /** выбираем данные с файла построчно
-     *  убираем лишние переносы
-     *
-     * @return array|mixed
-     */
-    private static function getData($file)
-    {
-        $fileData = fopen($file, "rb");
-        $data = explode("\n", fread($fileData, filesize($file)));
-        $data = str_replace(array("\r", "\n"), "", $data);
-        fclose($fileData);
-
-        return $data;
     }
 }

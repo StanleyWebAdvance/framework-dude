@@ -2,7 +2,6 @@
 
 namespace core\template;
 
-use helpers\Debug;
 use Philo\Blade\Blade;
 
 class Template

@@ -1,20 +1,14 @@
 <?php
 
-
 return array(
 
-
 'done'      => 'no problem, it is done dude! Ask me if there is any need, bro!',
-
 'hello'     => 'Hey whats up dude? You are the best, dude!!',
-
 'info'      => 'Web-developer : Stanley and Ivan 21 august 2018',
-
-
 
 'help'      =>
                 '
-                HELP :
+                HELP for dude:
                 
                 ---
                 
@@ -33,5 +27,4 @@ return array(
                 dude info
                 
                 '
-
 );

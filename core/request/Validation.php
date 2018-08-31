@@ -2,8 +2,6 @@
 
 namespace core\request;
 
-use core\Config;
-
 class Validation
 {
     /** проверка на капчу
@@ -13,14 +11,12 @@ class Validation
      */
     public function reCaptchaSuccess($data)
     {
-        $configDB = new Config('.env');
-
         $url_to_google_api = "https://www.google.com/recaptcha/api/siteverify";
-        $secret_key = $configDB->parseConfig('CAPTCHA_SECRET_KEY');
+        $secret_key = \core\config\Config::env('CAPTCHA_SECRET_KEY');
         $query = $url_to_google_api . '?secret=' . $secret_key . '&response=' . $data . '&remoteip=' . $_SERVER['REMOTE_ADDR'];
         $response = json_decode(file_get_contents($query));
 
-        return ($response->success); // ? true : false;
+        return ($response->success) ? true : false;
     }
 
     /** проверка на наличие цифр в строке
@@ -30,7 +26,7 @@ class Validation
      */
     public function checkDigits($str)
     {
-        return (!preg_match('~[0-9]~', $str)); // ? false : true;
+        return (!preg_match('~[0-9]~', $str)) ? false : true;
     }
 
     /** проверка на наличие букв нижнего регистра
@@ -40,7 +36,7 @@ class Validation
      */
     public function checkLowercase($str)
     {
-        return (!preg_match('~[a-z]~', $str)); // ? false : true;
+        return (!preg_match('~[a-z]~', $str)) ? false : true;
     }
 
     /** проверка на наличие вукв верхнего регистра
@@ -50,7 +46,7 @@ class Validation
      */
     public function checkUppercase($str)
     {
-        return (!preg_match('~[A-Z]~', $str)); // ? false : true;
+        return (!preg_match('~[A-Z]~', $str))? false : true;
     }
 
     /** проверка email
@@ -60,7 +56,7 @@ class Validation
      */
     public function checkEmail($email)
     {
-        return (!filter_var($email, FILTER_VALIDATE_EMAIL)); // ? false : true;
+        return (!filter_var($email, FILTER_VALIDATE_EMAIL)) ? false : true;
     }
 
     /** проверка телефона
@@ -74,7 +70,7 @@ class Validation
         $regExp = array('/\+/','/\(/','/\)/','/ /','/-/','/\*/','/\./','/,/');
         $phone = preg_replace($regExp, '', $phone);
 
-        return (!preg_match('/^[^a-zA-Zа-яА-ЯёЁ]*$/', $phone)); // ? false : true;
+        return (!preg_match('/^[^a-zA-Zа-яА-ЯёЁ]*$/', $phone)) ? false : true;
     }
 
 }
