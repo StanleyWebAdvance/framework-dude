@@ -8,6 +8,7 @@ session_start();
 
 require __DIR__ . '/vendor/autoload.php';
 
-(new \core\exception\ErrorHandler())->register();
+$exception = new \core\exception\ErrorHandler();
+$exception->register();
 
 include_once __DIR__ .  "/routes/web.php";
