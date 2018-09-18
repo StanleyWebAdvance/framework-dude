@@ -110,7 +110,7 @@ class Route
     {
         $nameMiddleware = ucfirst($nameMiddleware) . 'Middleware';
 
-        if (!file_exists('/app/middleware/' . $nameMiddleware . '.php')) {
+        if (!file_exists('app/middleware/' . $nameMiddleware . '.php')) {
 
             throw new ErrorHandler('Файл ' . $nameMiddleware . ' не найден.');
         }
@@ -126,7 +126,7 @@ class Route
      */
     private function systemPage($page)
     {
-        if (!file_exists('/core/template/Controller.php')) {
+        if (!file_exists('core/template/Controller.php')) {
 
             throw new ErrorHandler('Файл Controller.php не найден.');
         }
