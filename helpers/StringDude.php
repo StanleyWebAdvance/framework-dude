@@ -3,7 +3,7 @@
 namespace helpers;
 
 
-class String
+class StringDude
 {
     //  алфавиты
     private static $alphabet = array(

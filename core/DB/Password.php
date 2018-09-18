@@ -2,7 +2,7 @@
 
 namespace core\DB;
 
-use helpers\String;
+use helpers\StringDude;
 
 trait Password
 {
@@ -12,7 +12,7 @@ trait Password
      */
     public function cryptPassword($password)
     {
-        return crypt($password, String::genRandomString(60));
+        return crypt($password, StringDude::genRandomString(60));
     }
 
     /** проверяем пароль

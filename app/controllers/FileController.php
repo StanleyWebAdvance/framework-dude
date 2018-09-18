@@ -13,7 +13,7 @@ use app\requests\FileRequest;
 use core\config\Config;
 use core\image\Image;
 use core\template\Controller;
-use helpers\String;
+use helpers\StringDude;
 
 
 class FileController extends Controller
@@ -35,7 +35,7 @@ class FileController extends Controller
 
         $name = $request->take('name')->files('image');
 
-        $path = Config::storage('image') . String::translit($name);
+        $path = Config::storage('image') . StringDude::translit($name);
 
         $tmp_name = $request->take('tmp_name')->files('image');
 
