@@ -110,12 +110,12 @@ class Route
     {
         $nameMiddleware = ucfirst($nameMiddleware) . 'Middleware';
 
-        if (!file_exists('app\middleware\\' . $nameMiddleware . '.php')) {
+        if (!file_exists('/app/middleware/' . $nameMiddleware . '.php')) {
 
             throw new ErrorHandler('Файл ' . $nameMiddleware . ' не найден.');
         }
 
-        $middleware = 'app\middleware\\' . $nameMiddleware;
+        $middleware = '\app\middleware\\' . $nameMiddleware;
         $middleware = new $middleware($this->request);
         return $middleware->checkAccess();
     }
@@ -126,12 +126,12 @@ class Route
      */
     private function systemPage($page)
     {
-        if (!file_exists('core\template\Controller.php')) {
+        if (!file_exists('/core/template/Controller.php')) {
 
             throw new ErrorHandler('Файл Controller.php не найден.');
         }
 
-        $controller = 'core\template\Controller';
+        $controller = '\core\template\Controller';
         $controller = new $controller;
         return $controller->systemPage($page);
     }
