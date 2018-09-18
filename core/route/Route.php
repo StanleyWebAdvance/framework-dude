@@ -108,7 +108,7 @@ class Route
      */
     private function middleware($nameMiddleware)
     {
-        $nameMiddleware = $nameMiddleware . 'Middleware';
+        $nameMiddleware = ucfirst($nameMiddleware) . 'Middleware';
 
         if (!file_exists('app\middleware\\' . $nameMiddleware . '.php')) {
 
