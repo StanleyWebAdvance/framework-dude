@@ -2,6 +2,8 @@
 namespace app\middleware;
 
 use core\route\Middleware;
+use core\session\Auth;
+use Symfony\Component\Debug\Debug;
 
 /*********************************************************************
  *
@@ -15,6 +17,6 @@ class DashboardMiddleware extends Middleware
 {
     public function checkAccess()
     {
-        return false;
+        return Auth::isAuth();
     }
 }

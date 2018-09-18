@@ -21,7 +21,7 @@ $router->get('/logout', 'LoginController@logout', 'dashboard');
 $router->get('/registration', 'RegistrationController@index');
 $router->post('/registration', 'RegistrationController@registration');
 
-//$router->get('/dashboard', 'DashboardController@admin', 'dashboard');
+$router->get('/dashboard', 'DashboardController@index', 'dashboard');
 
 
 

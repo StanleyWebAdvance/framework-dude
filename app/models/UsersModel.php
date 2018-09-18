@@ -10,6 +10,9 @@ class UsersModel extends Model
 
     public $fillable = array(
 
-        //  your column table
+        'name',
+        'email',
+        'password',
+        '_token' => null
     );
 }

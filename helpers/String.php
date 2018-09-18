@@ -37,4 +37,33 @@ class String
     {
         return str_replace(self::$alphabet['rus'], self::$alphabet['translit'], $text);
     }
+
+    /** генерируем рандомную строку
+     *
+     * @param $len
+     * @return string
+     */
+    public static function genRandomString($len)
+    {
+        $string = "";
+        $symbol = array(
+            'select' => '',
+            1 => '0123456789',
+            2 => 'qwertyuiopasdfghjklzxcvbnm',
+            3 => 'QWERTYUIOPASDFGHJKLZXCVBNM',
+            4 => "qwertyuiopasdfghjklzxcvbnm1234567890QWERTYUIOPASDFGHJKLZXCVBNM"
+        );
+
+        $counter = 1;
+        $counterSymbol = 1;
+        while ($counter <= $len) {
+
+            $symbol['select'] = $symbol[$counterSymbol];
+            $string .= substr($symbol['select'], mt_rand(0, strlen($symbol['select'])) - 1, 1);
+            $counterSymbol = ($counterSymbol == 4) ? $counterSymbol = 1 : $counterSymbol + 1;
+            $counter++;
+        }
+
+        return $string;
+    }
 }

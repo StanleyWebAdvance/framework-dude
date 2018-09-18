@@ -10,7 +10,7 @@ class RegistrationRequest extends FormRequest
 
             'name' => 'имя',
             'min' => 3,
-            'max' => 8,
+            'max' => 150,
             'type' => 'name',
             'required' => true
         ),

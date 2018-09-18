@@ -1,9 +1,10 @@
 <?php 
 namespace app\controllers;
 
+use app\models\UsersModel;
 use app\requests\RegistrationRequest;
+use core\session\Auth;
 use core\template\Controller;
-use helpers\Debug;
 
 class RegistrationController extends Controller
 {
@@ -26,6 +27,28 @@ class RegistrationController extends Controller
             return $this->index($message['errors']);
         }
 
-        Debug::dump('записать в базу');
+        $user = new UsersModel();
+
+        $user->fillable = array(
+
+            'name' => $request->post('name'),
+            'email' => $request->post('email'),
+            'password' => $user->cryptPassword($request->post('password')),
+        );
+
+        $user->insert();
+
+        Auth::authSession(
+            array(
+
+                'id'    => $user::getLastId(),
+                'email' => $request->post('email'),
+                'name'  => $request->post('name')
+            )
+        );
+
+        $this->redirect('/dashboard');
+
+        return true;
     }
 }

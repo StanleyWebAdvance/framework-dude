@@ -4,6 +4,8 @@ namespace core\DB;
 
 class Model
 {
+    use Password;
+
     private $db;
     private $where = '';
     public $table;
@@ -15,9 +17,10 @@ class Model
         $this->db = DBConnector::getInstance();
     }
 
-    /** Выбираем все элементы с таблицы
+    /**
+     *  Выбираем все элементы с таблицы
      *
-     * @return string
+     * @return array
      */
     public function getAll()
     {
@@ -27,7 +30,8 @@ class Model
         return $stm->fetchAll(\PDO::FETCH_ASSOC);
     }
 
-    /** Записывам в базу новые данные
+    /**
+     *  Записывам в базу новые данные
      *
      * @return bool|string
      */
@@ -41,7 +45,8 @@ class Model
         return true;
     }
 
-    /** Обновляем данные в базе
+    /**
+     *  Обновляем данные в базе
      *
      * @return bool
      */
@@ -55,7 +60,8 @@ class Model
         return true;
     }
 
-    /** Выбираем данные с базы по параметрам
+    /**
+     *  Выбираем данные с базы по параметрам
      *
      * @param $column
      * @return string
@@ -71,7 +77,23 @@ class Model
         return $result = $stm->fetch(\PDO::FETCH_ASSOC);
     }
 
-    /** Выбираем данные с базы по id
+    /**
+     *  Выбираем данные с базы по email
+     *
+     * @param $email
+     * @return string
+     */
+    public function getByEmail($email)
+    {
+        DBConnector::setCharsetEncoding();
+        $sqlExample = "SELECT * FROM " . $this->table . " WHERE `email` = '" . $email . "' ";
+        $stm = $this->db->prepare($sqlExample);
+        $stm->execute();
+        return $result = $stm->fetch(\PDO::FETCH_ASSOC);
+    }
+
+    /**
+     *  Выбираем данные с базы по id
      *
      * @param $id
      * @return string
@@ -85,7 +107,8 @@ class Model
         return $result = $stm->fetch(\PDO::FETCH_ASSOC);
     }
 
-    /** Возвращаем последний записаный id  базу данных
+    /**
+     *  Возвращаем последний записаный id  базу данных
      *
      * @return string
      */
@@ -95,7 +118,8 @@ class Model
         return $db->lastInsertId();
     }
 
-    /** заполняем where в запросе
+    /**
+     *  заполняем where в запросе
      *
      * @param $column
      * @param $value
@@ -107,7 +131,8 @@ class Model
         return $this;
     }
 
-    /** дописываем and в запрос
+    /**
+     *  дописываем and в запрос
      *
      * @param $column
      * @param $value
@@ -119,7 +144,8 @@ class Model
         return $this;
     }
 
-    /** получаем данны для update
+    /**
+     *  получаем данны для update
      *  из массива fillable
      *
      * @return string
@@ -136,7 +162,8 @@ class Model
         return rtrim($items, ', ');
     }
 
-    /** получаем название колонок в базе
+    /**
+     *  получаем название колонок в базе
      *  из массива $fillable
      *
      * @return string
@@ -153,7 +180,8 @@ class Model
         return rtrim($columns, ', ');
     }
 
-    /** получаем значения соответствующие колонкам
+    /**
+     *  получаем значения соответствующие колонкам
      *
      * @return string
      */

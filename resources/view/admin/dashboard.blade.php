@@ -32,7 +32,7 @@
 
         <div class="row">
             <div class="col-md-12 admin-dude">
-                <p class="lead text-center">admin</p>
+                <p class="lead text-center">dashboard</p>
             </div>
         </div>
 
