@@ -31,7 +31,11 @@
 
         <div class="row">
             <div class="col-md-12 text-center enter-dude">
-                <a href="/login">login</a> / <a href="/registration">registration</a>
+                @if($isAuth)
+                    <a href="/dashboard">dashboard</a> / <a href="/">index</a>
+                @else
+                    <a href="/login">login</a> / <a href="/registration">registration</a> / <a href="/">index</a>
+                @endif
             </div>
         </div>
 

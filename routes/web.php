@@ -16,14 +16,12 @@ $router->get('/', 'IndexController@index');
 
 $router->get('/login', 'LoginController@index');
 $router->post('/login', 'LoginController@login');
-$router->get('/logout', 'LoginController@logout', 'dashboard');
+$router->get('/logout', 'LoginController@logout');
 
 $router->get('/registration', 'RegistrationController@index');
 $router->post('/registration', 'RegistrationController@registration');
 
 $router->get('/dashboard', 'DashboardController@index', 'dashboard');
-
-
 
 
 //  Запускаем роутер

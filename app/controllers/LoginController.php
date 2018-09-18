@@ -48,4 +48,11 @@ class LoginController extends Controller
 
         return $this->index(array('email' => 'Пользователя с таким email нет'));
     }
+
+    public function logout()
+    {
+        Auth::clearAuthSession();
+
+        $this->redirect('/');
+    }
 }

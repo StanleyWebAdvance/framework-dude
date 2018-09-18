@@ -26,7 +26,7 @@
 
         <div class="row">
             <div class="col-md-12 text-center logout-dude">
-                <a href="/logout">logout</a>
+                <a href="/logout">logout</a> / <a href="/">index</a>
             </div>
         </div>
 

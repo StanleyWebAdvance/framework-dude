@@ -2,13 +2,13 @@
 
 namespace core\session;
 
-use core\request\Request;
-use helpers\Debug;
-
 class Auth
 {
-    public static $authSession;
+    private static $authSession;
 
+    /**
+     *  Активируем сессию
+     */
     private static function construct()
     {
         if (!isset($_SESSION['auth'])) {
@@ -18,6 +18,11 @@ class Auth
         self::$authSession = &$_SESSION['auth'];
     }
 
+    /**
+     *  Заполняем сессию
+     *
+     * @param $user
+     */
     public static function authSession($user)
     {
         self::construct();
@@ -30,8 +35,15 @@ class Auth
         );
     }
 
+    /**
+     *  Проверяем есть ли юзер в сесии
+     *
+     * @return bool
+     */
     public static function isAuth()
     {
+        self::construct();
+
         if (isset(self::$authSession['auth']['userId'])) {
 
             return true;
@@ -40,8 +52,13 @@ class Auth
         return false;
     }
 
+    /**
+     *  Очищаем сессию
+     */
     public static function clearAuthSession()
     {
+        self::construct();
+
         self::$authSession = false;
     }
 }

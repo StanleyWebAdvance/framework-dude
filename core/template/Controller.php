@@ -3,6 +3,8 @@
 namespace core\template;
 
 use core\Container;
+use core\session\Auth;
+use helpers\Debug;
 use Illuminate\Support\HtmlString;
 
 class Controller
@@ -24,8 +26,9 @@ class Controller
      */
     protected function view($uriView, array $params = array())
     {
-        $params['_token'] = new HtmlString(Token::generate());
+        $params['_token']  = new HtmlString(Token::generate());
         $params['captcha'] = new HtmlString(Captcha::get());
+        $params['isAuth']  = Auth::isAuth();
 
         //todo добавить автоматический вывод ошибок
 
@@ -48,7 +51,8 @@ class Controller
      */
     public function redirect($uri)
     {
-        header('Location: ' . $_SERVER['HTTP_ORIGIN'] . $uri);
+//        Debug::dd($_SERVER, $_SERVER['HTTP_ORIGIN'] , $uri);
+        header('Location: ' . $uri);
     }
 
 }
