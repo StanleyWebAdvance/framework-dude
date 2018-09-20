@@ -6,6 +6,7 @@ use app\requests\LoginRequest;
 use core\session\Auth;
 use core\session\Cookies;
 use core\template\Controller;
+use helpers\Crypt;
 
 class LoginController extends Controller
 {
@@ -34,7 +35,7 @@ class LoginController extends Controller
 
         if ($user) {
 
-            if (!$mUser->checkPassword($request->post('password'), $user['password'])) {
+            if (!Crypt::checkPassword($request->post('password'), $user['password'])) {
 
                 return $this->index(array('password' => 'Пароль введен не верно'));
             }

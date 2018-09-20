@@ -1,16 +1,14 @@
 <?php
 
-namespace core\DB;
+namespace helpers;
 
-use helpers\StringDude;
-
-trait Password
+class Crypt
 {
     /**
      * @param $password
      * @return string
      */
-    public function cryptPassword($password)
+    public static function password($password)
     {
         return crypt($password, StringDude::genRandomString(60));
     }
@@ -21,7 +19,7 @@ trait Password
      * @param $passwordDB
      * @return bool
      */
-    public function checkPassword($password, $passwordDB)
+    public static function checkPassword($password, $passwordDB)
     {
         return ($passwordDB == crypt($password, $passwordDB));
     }

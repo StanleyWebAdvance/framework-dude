@@ -4,8 +4,6 @@ namespace core\DB;
 
 class Model
 {
-    use Password;
-
     private $db;
     private $where = '';
     public $table;

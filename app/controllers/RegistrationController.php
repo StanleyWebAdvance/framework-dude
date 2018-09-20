@@ -5,6 +5,7 @@ use app\models\UsersModel;
 use app\requests\RegistrationRequest;
 use core\session\Auth;
 use core\template\Controller;
+use helpers\Crypt;
 
 class RegistrationController extends Controller
 {
@@ -33,7 +34,7 @@ class RegistrationController extends Controller
 
             'name' => $request->post('name'),
             'email' => $request->post('email'),
-            'password' => $mUser->cryptPassword($request->post('password')),
+            'password' => Crypt::password($request->post('password')),
         );
 
         $mUser->insert();
