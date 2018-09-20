@@ -1,7 +1,10 @@
 #!/usr/bin/env php
 <?php
 
-spl_autoload_register();
+spl_autoload_register(function ($class) {
+
+    include_once __DIR__ . DIRECTORY_SEPARATOR . str_replace('\\', DIRECTORY_SEPARATOR, $class) . '.php';
+});
 
 new \core\console\Console($argv);
 
