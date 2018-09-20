@@ -5,7 +5,6 @@ use app\models\UsersModel;
 use app\requests\LoginRequest;
 use core\session\Auth;
 use core\template\Controller;
-use helpers\Debug;
 
 class LoginController extends Controller
 {
@@ -28,18 +27,18 @@ class LoginController extends Controller
             return $this->index($message['errors']);
         }
 
-        $user = new UsersModel();
+        $mUser = new UsersModel();
 
-        $haveUser = $user->getByEmail($request->post('email'));
+        $user = $mUser->getByEmail($request->post('email'));
 
-        if ($haveUser) {
+        if ($user) {
 
-            if (!$user->checkPassword($request->post('password'), $haveUser['password'])) {
+            if (!$mUser->checkPassword($request->post('password'), $user['password'])) {
 
                 return $this->index(array('password' => 'Пароль введен не верно'));
             }
 
-            Auth::authSession($haveUser);
+            Auth::authSession($user, $request->post('remember'));
 
             $this->redirect('/dashboard');
 

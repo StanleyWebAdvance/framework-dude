@@ -45,7 +45,6 @@ class StringDude
      */
     public static function genRandomString($len)
     {
-        $string = "";
         $symbol = array(
             'select' => '',
             1 => '0123456789',
@@ -54,6 +53,7 @@ class StringDude
             4 => "qwertyuiopasdfghjklzxcvbnm1234567890QWERTYUIOPASDFGHJKLZXCVBNM"
         );
 
+        $string = "";
         $counter = 1;
         $counterSymbol = 1;
         while ($counter <= $len) {

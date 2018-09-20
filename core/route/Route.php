@@ -4,6 +4,8 @@ namespace core\route;
 
 use core\request\Request;
 use core\exception\ErrorHandler;
+use core\session\Cookies;
+use helpers\Debug;
 
 class Route
 {
@@ -58,6 +60,9 @@ class Route
      */
     public function run()
     {
+        //  проверяем кукки
+        Cookies::checkCookies($this->request->cookie());
+
         $uri = $this->request->server('REQUEST_URI');
 
         //  проверям есть ли такой роут в нашей коллекции

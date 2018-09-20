@@ -27,24 +27,25 @@ class RegistrationController extends Controller
             return $this->index($message['errors']);
         }
 
-        $user = new UsersModel();
+        $mUser = new UsersModel();
 
-        $user->fillable = array(
+        $mUser->fillable = array(
 
             'name' => $request->post('name'),
             'email' => $request->post('email'),
-            'password' => $user->cryptPassword($request->post('password')),
+            'password' => $mUser->cryptPassword($request->post('password')),
         );
 
-        $user->insert();
+        $mUser->insert();
 
         Auth::authSession(
             array(
 
-                'id'    => $user::getLastId(),
+                'id'    => $mUser::getLastId(),
                 'email' => $request->post('email'),
                 'name'  => $request->post('name')
-            )
+            ),
+            $request->post('remember')
         );
 
         $this->redirect('/dashboard');

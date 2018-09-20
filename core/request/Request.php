@@ -97,6 +97,17 @@ class Request
         return $this->getArr($this->session, $name);
     }
 
+    /** возвращаем значение с массива cookie по ключу
+     *  либо весь массив
+     *
+     * @param null $name
+     * @return array|mixed|null
+     */
+    public function cookie($name = null)
+    {
+        return $this->getArr($this->cookie, $name);
+    }
+
     /** возвращаем значение с массива сервер по ключу
      *  либо весь массив
      *

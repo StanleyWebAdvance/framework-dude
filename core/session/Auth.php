@@ -20,10 +20,12 @@ class Auth
 
     /**
      *  Заполняем сессию
+     *  Устанавливаем куки
      *
      * @param $user
+     * @param bool $setCookie
      */
-    public static function authSession($user)
+    public static function authSession($user, $setCookie = false)
     {
         self::construct();
 
@@ -33,6 +35,11 @@ class Auth
             'name'   => $user['name'],
             'email'  => $user['email'],
         );
+
+        if ($setCookie) {
+
+            Cookies::setCookies($user);
+        }
     }
 
     /**

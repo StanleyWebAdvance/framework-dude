@@ -29,8 +29,6 @@ class FileController extends Controller
             return (new IndexController())->index($message['errors']);
         }
 
-
-
         $image = new Image();
 
         $name = $request->take('name')->files('image');
@@ -40,8 +38,6 @@ class FileController extends Controller
         $tmp_name = $request->take('tmp_name')->files('image');
 
         $image->make($tmp_name)->save($path);
-
-
 
     }
 }
