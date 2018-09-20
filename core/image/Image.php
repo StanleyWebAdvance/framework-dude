@@ -7,7 +7,7 @@ use Intervention\Image\ImageManager;
 
 class Image extends ImageManager
 {
-    //todo не придумал что написать ))))
+
 }
 
 
