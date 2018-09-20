@@ -61,7 +61,7 @@ class Route
     public function run()
     {
         //  проверяем кукки
-        Cookies::checkCookies($this->request->cookie());
+        Cookies::check($this->request->cookie());
 
         $uri = $this->request->server('REQUEST_URI');
 

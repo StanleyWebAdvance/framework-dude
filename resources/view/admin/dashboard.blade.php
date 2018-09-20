@@ -7,7 +7,10 @@
             margin: 177px 0 50px 0;
         }
         .admin-dude p{
-            font-size: 177px;
+            font-size: 77px;
+        }
+        .admin-hello p{
+            font-size: 25px;
         }
         .logout-dude{
             margin: 40px 0 30px 0;
@@ -33,6 +36,9 @@
         <div class="row">
             <div class="col-md-12 admin-dude">
                 <p class="lead text-center">dashboard</p>
+            </div>
+            <div class="col-md-12 admin-hello">
+                <p class="lead text-center">{{ $user['name'] }} you are a real dude!</p>
             </div>
         </div>
 

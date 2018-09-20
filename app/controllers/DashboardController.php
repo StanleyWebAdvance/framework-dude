@@ -1,15 +1,16 @@
 <?php 
 namespace app\controllers;
 
-use app\models\UsersModel;
+use core\session\Auth;
 use core\template\Controller;
 
 class DashboardController extends Controller
 {
     public function index()
     {
-        $mUser = new UsersModel();
-        
-        return $this->view('admin/dashboard');
+        return $this->view('admin/dashboard', array(
+
+            'user' => Auth::user()
+        ));
     }
 }

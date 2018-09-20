@@ -38,7 +38,7 @@ class RegistrationController extends Controller
 
         $mUser->insert();
 
-        Auth::authSession(
+        Auth::auth(
             array(
 
                 'id'    => $mUser::getLastId(),

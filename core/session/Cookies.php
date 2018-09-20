@@ -6,12 +6,24 @@ use app\models\UsersModel;
 
 class Cookies
 {
-    public static function setCookies($user)
+    /**
+     *  Устанавливаем куки
+     *
+     * @param $user
+     */
+    public static function set($user)
     {
-        setcookie('dude', $user['id'], time() + 300);
+        setcookie('dude', $user['id'], time() + (60 * 60 * 24 * 7));
     }
 
-    public static function checkCookies($cookie)
+    /**
+     *  Если куки есть и пользователь найден
+     *  Создаем сессию
+     *
+     * @param $cookie
+     * @return bool
+     */
+    public static function check($cookie)
     {
         if (!isset($cookie['dude'])) { return true; }
 
@@ -19,9 +31,17 @@ class Cookies
 
         if (isset($user)) {
 
-            Auth::authSession($user);
+            Auth::auth($user);
         }
 
         return true;
+    }
+
+    /**
+     *  Очищаем сессию
+     */
+    public static function clear()
+    {
+        setcookie('dude', '', time() - 1);
     }
 }

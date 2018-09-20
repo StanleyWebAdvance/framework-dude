@@ -7,7 +7,7 @@ class Auth
     private static $authSession;
 
     /**
-     *  Активируем сессию
+     *  Получаем данные с сессии
      */
     private static function construct()
     {
@@ -25,7 +25,7 @@ class Auth
      * @param $user
      * @param bool $setCookie
      */
-    public static function authSession($user, $setCookie = false)
+    public static function auth($user, $setCookie = false)
     {
         self::construct();
 
@@ -38,8 +38,20 @@ class Auth
 
         if ($setCookie) {
 
-            Cookies::setCookies($user);
+            Cookies::set($user);
         }
+    }
+
+    /**
+     *  возвращаем пользователя с сессии
+     *
+     * @return mixed
+     */
+    public static function user()
+    {
+        self::construct();
+
+        return self::$authSession['auth'];
     }
 
     /**
@@ -62,7 +74,7 @@ class Auth
     /**
      *  Очищаем сессию
      */
-    public static function clearAuthSession()
+    public static function clear()
     {
         self::construct();
 

@@ -4,6 +4,7 @@ namespace app\controllers;
 use app\models\UsersModel;
 use app\requests\LoginRequest;
 use core\session\Auth;
+use core\session\Cookies;
 use core\template\Controller;
 
 class LoginController extends Controller
@@ -38,7 +39,7 @@ class LoginController extends Controller
                 return $this->index(array('password' => 'Пароль введен не верно'));
             }
 
-            Auth::authSession($user, $request->post('remember'));
+            Auth::auth($user, $request->post('remember'));
 
             $this->redirect('/dashboard');
 
@@ -50,7 +51,9 @@ class LoginController extends Controller
 
     public function logout()
     {
-        Auth::clearAuthSession();
+        Auth::clear();
+
+        Cookies::clear();
 
         $this->redirect('/');
     }
