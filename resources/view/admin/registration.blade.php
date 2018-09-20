@@ -55,12 +55,13 @@
                 <form action="/registration" method="post" class="form-login">
                     <div class="form-group">
                         <label for="Name">Name</label>
-                        <input type="text" name="name" class="form-control" placeholder="Enter your name dude">
+                        <input type="text" name="name" class="form-control" placeholder="Enter your name dude"
+                               value="{{ $oldPost['name'] or '' }}">
                     </div>
                     <div class="form-group">
                         <label for="Email">Email</label>
                         <input type="text" name="email" class="form-control" aria-describedby="emailHelp"
-                               placeholder="Enter your email address dude">
+                               placeholder="Enter your email address dude" value="{{ $oldPost['email'] or '' }}">
                         <small class="form-text text-muted">We'll never share your email with anyone
                             else.
                         </small>

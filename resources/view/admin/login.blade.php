@@ -63,7 +63,7 @@
                     <div class="form-group">
                         <label for="Email">Email</label>
                         <input type="text" name="email" class="form-control" aria-describedby="emailHelp"
-                               placeholder="Enter your email address dude">
+                               placeholder="Enter your email address dude" value="{{ $oldPost['email'] or '' }}">
                         <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone
                             else.
                         </small>

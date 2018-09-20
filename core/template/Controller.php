@@ -3,6 +3,7 @@
 namespace core\template;
 
 use core\Container;
+use core\request\Request;
 use core\session\Auth;
 use helpers\Debug;
 use Illuminate\Support\HtmlString;
@@ -26,9 +27,10 @@ class Controller
      */
     protected function view($uriView, array $params = array())
     {
-        $params['_token']  = new HtmlString(Token::generate());
-        $params['captcha'] = new HtmlString(Captcha::get());
-        $params['isAuth']  = Auth::isAuth();
+        $params['_token']   = new HtmlString(Token::generate());
+        $params['captcha']  = new HtmlString(Captcha::get());
+        $params['isAuth']   = Auth::isAuth();
+        $params['oldPost']  = (new Request())->post();
 
         //todo добавить автоматический вывод ошибок
 
