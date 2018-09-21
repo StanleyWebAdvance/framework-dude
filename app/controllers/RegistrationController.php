@@ -6,35 +6,34 @@ use app\requests\RegistrationRequest;
 use core\session\Auth;
 use core\template\Controller;
 use helpers\Crypt;
+use helpers\Debug;
 
 class RegistrationController extends Controller
 {
-    public function index($errors = array())
+    public function index()
     {
         return $this->view('admin/registration', array(
 
-            'title' => 'Регистрация',
-            'errors' => $errors
+            'title' => 'Регистрация'
         ));
     }
 
     public function registration()
     {
-        $request = new RegistrationRequest();
-        $message = $request->checkPost();
+        $this->request = new RegistrationRequest();
 
-        if ($message['error']) {
+        if (!empty($this->request->getErrors())) {
 
-            return $this->index($message['errors']);
+            return $this->index();
         }
 
         $mUser = new UsersModel();
 
         $mUser->fillable = array(
 
-            'name' => $request->post('name'),
-            'email' => $request->post('email'),
-            'password' => Crypt::password($request->post('password')),
+            'name' => $this->request->post('name'),
+            'email' => $this->request->post('email'),
+            'password' => Crypt::password($this->request->post('password')),
         );
 
         $mUser->insert();
@@ -43,10 +42,10 @@ class RegistrationController extends Controller
             array(
 
                 'id'    => $mUser::getLastId(),
-                'email' => $request->post('email'),
-                'name'  => $request->post('name')
+                'email' => $this->request->post('email'),
+                'name'  => $this->request->post('name')
             ),
-            $request->post('remember')
+            $this->request->post('remember')
         );
 
         $this->redirect('/dashboard');

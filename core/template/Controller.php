@@ -2,21 +2,21 @@
 
 namespace core\template;
 
-use core\Container;
 use core\request\Request;
 use core\session\Auth;
-use helpers\Debug;
 use Illuminate\Support\HtmlString;
 
 class Controller
 {
+    public $request;
+
     private $template;
-    public $container;
 
     public function __construct()
     {
-        $this->template = new Template();
-        $this->container = new Container();
+        $this->template  = new Template();
+
+        $this->request   = new Request();
     }
 
     /** передаем данные для генерации шаблона
@@ -30,9 +30,8 @@ class Controller
         $params['_token']   = new HtmlString(Token::generate());
         $params['captcha']  = new HtmlString(Captcha::get());
         $params['isAuth']   = Auth::isAuth();
-        $params['oldPost']  = (new Request())->post();
-
-        //todo добавить автоматический вывод ошибок
+        $params['oldPost']  = $this->request->post();
+        $params['errors']   = $this->request->getErrors();
 
         return $this->template->render($uriView, $params);
     }

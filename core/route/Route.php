@@ -9,9 +9,10 @@ use helpers\Debug;
 
 class Route
 {
-    private $routeCollection = array();
     protected $request;
     protected $middleware;
+
+    private $routeCollection = array();
 
     public function __construct()
     {
@@ -48,7 +49,7 @@ class Route
             'action' => $param[1],
             'middleware' => $middleware,
             'controllerObject' => new $controller(),
-            'param' => $this->parseParam($uri),
+            'param' => $this->parseParam($uri)
         );
     }
 
@@ -93,6 +94,7 @@ class Route
         //  получем нужный контроллер и метод
         $controllerObject = $this->routeCollection[$uri][$realMethod]['controllerObject'];
         $action = $this->routeCollection[$uri][$realMethod]['action'];
+        $this->routeCollection[$uri][$realMethod]['last'] = true;
 
         //  если в массиве есть параметры запускаем метод контроллера с параметрами
         if (!empty($this->routeCollection[$uri][$realMethod]['param'])) {

@@ -10,44 +10,40 @@ use helpers\Crypt;
 
 class LoginController extends Controller
 {
-    public function index($errors = array())
+    public function index()
     {
         return $this->view('admin/login', array(
 
-            'title' => 'Вход',
-            'errors' => $errors
+            'title' => 'Вход'
         ));
     }
 
     public function login()
     {
-        $request = new LoginRequest();
-        $message = $request->checkPost();
+        $this->request = new LoginRequest();
 
-        if ($message['error']) {
+        if (!empty($this->request->getErrors())) {
 
-            return $this->index($message['errors']);
+            return $this->index();
         }
 
         $mUser = new UsersModel();
 
-        $user = $mUser->getByEmail($request->post('email'));
+        $user = $mUser->getByEmail($this->request->post('email'));
 
         if ($user) {
 
-            if (!Crypt::checkPassword($request->post('password'), $user['password'])) {
+            if (!Crypt::checkPassword($this->request->post('password'), $user['password'])) {
 
-                return $this->index(array('password' => 'Пароль введен не верно'));
+                return $this->index();  // array('password' => 'Пароль введен не верно')
             }
 
-            Auth::auth($user, $request->post('remember'));
+            Auth::auth($user, $this->request->post('remember'));
 
             $this->redirect('/dashboard');
-
-            return true;
         }
 
-        return $this->index(array('email' => 'Пользователя с таким email нет'));
+        return $this->index();  // array('email' => 'Пользователя с таким email нет')
     }
 
     public function logout()

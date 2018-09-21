@@ -4,7 +4,7 @@ use core\request\FormRequest;
 
 class LoginRequest extends FormRequest
 {
-    public $rules = array(
+    public $rulesPost = array(
 
         'captcha' => false,
 

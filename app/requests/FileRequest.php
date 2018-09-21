@@ -4,7 +4,7 @@ use core\request\FormRequest;
 
 class FileRequest extends FormRequest
 {
-    public $rules = array(
+    public $rulesFile = array(
 
         'image' => array(
 

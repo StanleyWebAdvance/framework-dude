@@ -2,10 +2,15 @@
 
 namespace core\request;
 
+use helpers\Debug;
+
 class Request
 {
-    const METHOD_POST = 'POST';
-    const METHOD_GET = 'GET';
+    const METHOD_POST   = 'POST';
+    const METHOD_GET    = 'GET';
+
+    public  $rulesPost  = array();
+    public  $rulesFile  = array();
 
     private $get;
     private $post;
@@ -14,18 +19,37 @@ class Request
     private $files;
     private $session;
 
+    private $errors     = array();
     private $key;
-
-    public $rules = array();
 
     public function __construct()
     {
-        $this->get = $_GET;
-        $this->post = $_POST;
-        $this->server = $_SERVER;
-        $this->cookie = $_COOKIE;
-        $this->files = $_FILES;
+        $this->get     = $_GET;
+        $this->post    = $_POST;
+        $this->server  = $_SERVER;
+        $this->cookie  = $_COOKIE;
+        $this->files   = $_FILES;
         $this->session = $_SESSION;
+    }
+
+    /**
+     *  Записывам массив с ошибками
+     *
+     * @param $errors
+     */
+    protected function setErrors($errors)
+    {
+        $this->errors = $errors;
+    }
+
+    /**
+     *  Возвращаем массив с ошибками
+     *
+     * @return array
+     */
+    public function getErrors()
+    {
+        return $this->errors;
     }
 
     /** возвращаем значение с массива пост по ключу

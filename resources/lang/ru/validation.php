@@ -16,6 +16,9 @@ return array(
 
     'requiredFile'          => 'Вы не выбрали файл',
 
+    'password-user'         => 'Пароль введен не верно',
+    'email-user'            => 'Пользователя с таким email нет',
+    
     'password-confirm'      => 'Пароли не совпадают',
     'password-digits'       => 'Используйте в пароле цифру',
     'password-lowercase'    => 'Используйте в пароле маленькие буквы',

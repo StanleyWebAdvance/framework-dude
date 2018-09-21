@@ -21,13 +21,13 @@ class FileController extends Controller
     public function upload()
     {
         $request = new FileRequest();
-
-        $message = $request->checkFiles();
-
-        if ($message['error']) {
-
-            return (new IndexController())->index($message['errors']);
-        }
+//
+//        $message = $request->checkFiles();
+//
+//        if ($message['error']) {
+//
+//            return (new IndexController())->index($message['errors']);
+//        }
 
         $image = new Image();
 

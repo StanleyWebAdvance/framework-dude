@@ -9,8 +9,8 @@ class FormRequest extends Request
     const ANSWER_RU = 'resources/lang/ru/validation.php';
     const ANSWER_EN = 'resources/lang/en/validation.php';
 
+    private $message;
     private $validation;
-    private $message = array();
     private $answer = array();
 
     public function __construct()
@@ -20,19 +20,25 @@ class FormRequest extends Request
         $this->validation = new Validation();
 
         $this->answer = include_once self::ANSWER_RU;
-    }
 
-    /** валидация массива пост
-     *
-     * @return array
-     */
-    public function checkPost()
-    {
         $this->message['error'] = false;
         $this->message['errors'] = array();
         $this->message['redirect'] = false;
         $this->message['ok'] = $this->answer['ok'];
 
+        $this->checkPost();
+
+        $this->checkFiles();
+    }
+
+    /**
+     *  валидация массива пост
+     *
+     * @return bool
+     * @throws ErrorHandler
+     */
+    private function checkPost()
+    {
         //  проверяем пришел ли токен
         if (($this->post('_token')) == null
                 || $this->session('_token') == null
@@ -42,7 +48,7 @@ class FormRequest extends Request
         }
 
         //  запускаем цикл по полям правил валидации
-        foreach ($this->rules as $nameRules => $rule) {
+        foreach ($this->rulesPost as $nameRules => $rule) {
 
             //  проверяем поле на заполнение по правилу required
             if (isset($rule['required']) && $rule['required']){
@@ -175,22 +181,21 @@ class FormRequest extends Request
 
                 //  todo написать проверку на цифры
             }
-
         }
 
-        return $this->message;
+        $this->setErrors($this->message['errors']);
+
+        return true;
     }
 
-
-
-
-    public function checkFiles()
+    /**
+     *  Проверяем массив файлов
+     *
+     * @return bool
+     * @throws ErrorHandler
+     */
+    private function checkFiles()
     {
-        $this->message['error'] = false;
-        $this->message['errors'] = array();
-        $this->message['redirect'] = false;
-        $this->message['ok'] = $this->answer['ok'];
-
         //  проверяем пришел ли токен
         if (($this->post('_token')) == null
             || $this->session('_token') == null
@@ -200,7 +205,7 @@ class FormRequest extends Request
         }
 
         //  запускаем цикл по полям правил валидации
-        foreach ($this->rules as $nameRules => $rule) {
+        foreach ($this->rulesFile as $nameRules => $rule) {
 
             //  проверяем поле на заполнение по правилу required
             if (isset($rule['required']) && $rule['required']) {
@@ -217,7 +222,8 @@ class FormRequest extends Request
 
         }
 
-        return $this->message;
-    }
+        $this->setErrors($this->message['errors']);
 
+        return true;
+    }
 }
