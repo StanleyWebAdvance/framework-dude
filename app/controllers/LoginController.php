@@ -27,6 +27,12 @@ class LoginController extends Controller
             return $this->index();
         }
 
+        $mUser = new UsersModel();
+
+        $user = $mUser->getByEmail($this->request->post('email'));
+
+        Auth::auth($user, $this->request->post('remember'));
+
         $this->redirect('/dashboard');
 
         return true;
