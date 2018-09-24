@@ -2,6 +2,7 @@
 
 namespace core\request;
 
+use app\models\UsersModel;
 use core\exception\ErrorHandler;
 
 class FormRequest extends Request
@@ -179,12 +180,44 @@ class FormRequest extends Request
             //  поле состоит только из цифр
             if (isset($rule['numeric']) && $rule['numeric']){
 
-                //  todo написать проверку на цифры
+                //  todo написать проверку на цыфры
             }
+        }
+
+        // Если ошибок нет и правило User=true то проверяем есть ли такой юзер
+        if (!$this->message['error'] && isset($this->rulesPost['user']) && $this->rulesPost['user']) {
+
+            $this->checkUser();
         }
 
         $this->setErrors($this->message['errors']);
 
+        return true;
+    }
+
+    /**
+     *  Проверяем юзера
+     *
+     * @return bool
+     */
+    private function checkUser()
+    {
+        $mUser = new UsersModel();
+
+        $user = $mUser->getByEmail($this->post('email'));
+
+        if (!$user) {
+
+            $this->message['error'] = true;
+            $this->message['errors']['user-email'] = $this->answer['user-email'];
+            return true;
+        }
+
+        if (!$this->validation->checkPassword($this->post('password'), $user['password'])) {
+
+            $this->message['error'] = true;
+            $this->message['errors']['user-password'] = $this->answer['user-password'];
+        }
         return true;
     }
 

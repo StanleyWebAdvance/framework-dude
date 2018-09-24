@@ -6,9 +6,11 @@ class LoginRequest extends FormRequest
 {
     public $rulesPost = array(
 
-        'captcha' => false,
+        'captcha'  => false,
 
-        'email' => array(
+        'user'     => true,
+
+        'email'    => array(
 
             'name' => 'email',
             'type' => 'email',

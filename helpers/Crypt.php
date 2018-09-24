@@ -12,15 +12,4 @@ class Crypt
     {
         return crypt($password, StringDude::genRandomString(60));
     }
-
-    /** проверяем пароль
-     *
-     * @param $password
-     * @param $passwordDB
-     * @return bool
-     */
-    public static function checkPassword($password, $passwordDB)
-    {
-        return ($passwordDB == crypt($password, $passwordDB));
-    }
 }

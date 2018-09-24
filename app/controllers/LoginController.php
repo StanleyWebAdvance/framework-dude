@@ -27,23 +27,9 @@ class LoginController extends Controller
             return $this->index();
         }
 
-        $mUser = new UsersModel();
+        $this->redirect('/dashboard');
 
-        $user = $mUser->getByEmail($this->request->post('email'));
-
-        if ($user) {
-
-            if (!Crypt::checkPassword($this->request->post('password'), $user['password'])) {
-
-                return $this->index();  // array('password' => 'Пароль введен не верно')
-            }
-
-            Auth::auth($user, $this->request->post('remember'));
-
-            $this->redirect('/dashboard');
-        }
-
-        return $this->index();  // array('email' => 'Пользователя с таким email нет')
+        return true;
     }
 
     public function logout()

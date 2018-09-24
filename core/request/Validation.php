@@ -2,6 +2,8 @@
 
 namespace core\request;
 
+use helpers\StringDude;
+
 class Validation
 {
     /** проверка на капчу
@@ -71,6 +73,17 @@ class Validation
         $phone = preg_replace($regExp, '', $phone);
 
         return (!preg_match('/^[^a-zA-Zа-яА-ЯёЁ]*$/', $phone)) ? false : true;
+    }
+
+    /** проверяем пароль
+     *
+     * @param $password
+     * @param $passwordDB
+     * @return bool
+     */
+    public function checkPassword($password, $passwordDB)
+    {
+        return ($passwordDB == crypt($password, $passwordDB));
     }
 
 }
