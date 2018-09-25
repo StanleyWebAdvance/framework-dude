@@ -10,7 +10,7 @@ class Response
      * @param $data
      * @return string
      */
-    public function responseEncodeData($data)
+    public static function json($data)
     {
         return json_encode($data);
     }

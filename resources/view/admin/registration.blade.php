@@ -23,6 +23,12 @@
 
 @endsection
 
+@section('script')
+
+    <script src="/assets/app/formAjax.js"></script>
+
+@endsection
+
 @section('content')
 
     <div class="container">
@@ -52,7 +58,7 @@
             <div class="col"></div>
 
             <div class="col">
-                <form action="/registration" method="post" class="form-login">
+                <form action="http://framework-dude/registration" method="post" class="form-login form-ajax">
                     <div class="form-group">
                         <label for="Name">Name</label>
                         <input type="text" name="name" class="form-control" placeholder="Enter your name dude"

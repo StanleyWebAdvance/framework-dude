@@ -1,25 +1,25 @@
-jQuery(document).ready(function () {
+$(document).ready(function () {
 
 
     //todo поймать все формы с классом formAjax и отправить
 
-    // jQuery('.modal-form').on('submit', function (event) {
-    //
-    //     event.preventDefault();
-    //
-    //     ObjectPlazaJs.callbackResponseFb(jQuery(this), '.modal-form');
-    // });
+    $('.form-ajax').on('submit', function (event) {
 
+        event.preventDefault();
 
-    $('.formAjax').find('input, select, textarea').each(function () {
-
-        $data[this.name] = $(this).val();
+        DudeAjax.callbackResponseFb($(this), '.form-ajax');
     });
+
+
+    // $('.formAjax').find('input, select, textarea').each(function () {
+    //
+    //     $data[this.name] = $(this).val();
+    // });
 
 });
 
 
-ObjectPlazaJs = {
+DudeAjax = {
 
     callbackResponseFb: function (that, nameForm) {
 
@@ -28,8 +28,8 @@ ObjectPlazaJs = {
         var errorClass = nameForm + ' .response_error';
         var okClass = nameForm + ' .response_ok';
 
-        jQuery(errorClass).html('');
-        jQuery(okClass).html('');
+        // jQuery(errorClass).html('');
+        // jQuery(okClass).html('');
 
         this.ajaxResponseFb(formData, action, function (response) {
 
@@ -47,7 +47,9 @@ ObjectPlazaJs = {
 
     ajaxResponseFb: function (data, action, callback) {
 
-        jQuery.ajax({
+        console.log(data, action, callback);
+
+        $.ajax({
 
             url: action,
             type: 'POST',

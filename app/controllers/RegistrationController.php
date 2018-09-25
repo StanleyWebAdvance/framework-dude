@@ -3,6 +3,7 @@ namespace app\controllers;
 
 use app\models\UsersModel;
 use app\requests\RegistrationRequest;
+use core\request\Response;
 use core\session\Auth;
 use core\template\Controller;
 use helpers\Crypt;
